@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:m="clr-namespace:PornTokF.Models" xmlns:vm="clr-namespace:PornTokF.ViewModels"
+              x:Class="PornTokF.Views.feed"
+              Background="black"
+              Shell.NavBarIsVisible="False"
+              Title="Лента">
+    <!--Recomend-->
+    <ContentPage>
+        <Grid Margin="1">
+            <Grid.BindingContext>
+                <vm:RecomendViewModel/>
+            </Grid.BindingContext>
+            <CarouselView IsBounceEnabled="True" ItemsSource="{Binding Photos}" Loop="False" CurrentItem="{Binding CurrentItem, Mode=OneWayToSource}" ItemTemplate="{StaticResource Photo}">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+                </CarouselView.ItemsLayout>
+            </CarouselView>
+        </Grid>
+    </ContentPage>
+
+    <!--Random-->
+    <ContentPage>
+        <!--<StackLayout>
+            <Label>https://rule34.xxx/index.php?page=tags&s=list&sort=asc&order_by=type&pid=103200</Label>
+            <Label>tags=%28+user%3abot+~+user%3abob+%29+sort%3acreated_at%3adesc</Label>
+        </StackLayout>-->
+        <Grid>
+            <Grid.BindingContext>
+                <vm:SubscribeViewModel/>
+            </Grid.BindingContext>
+            <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
+                <CarouselView ItemsSource="{Binding Photos}" Loop="False" ItemTemplate="{StaticResource Photo}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+                    </CarouselView.ItemsLayout>
+                </CarouselView>
+            </RefreshView>
+        </Grid>
+    </ContentPage>
+</CarouselPage>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PornTokF.Services" 
+             xmlns:m="clr-namespace:PornTokF.Models" 
+             x:Class="PornTokF.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#000</Color>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="Photo">
+                <Grid x:DataType="m:PhotoViewModel">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
+                    <Image Aspect="{Binding aspect}" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2"/>
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                <GradientStop Color="#0000" Offset="1" />
+                                <GradientStop Color="#5000" Offset="0.85" />
+                                <GradientStop Color="#000" Offset="0" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="White"/>
+                        <Label Text="{Binding Photo.Tags}" TextColor="White" Margin="0, 20, 0, 0"/>
+                        <Button BackgroundColor="#01000000" Command="{Binding More}"/>
+                    </Grid>
+                    <Frame Grid.RowSpan="2" BackgroundColor="#01000000" IsVisible="{Binding MoreIsVisible}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding More}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <StackLayout WidthRequest="60" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,0">
+                        <ImageButton Command="{Binding Like}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Aspect}" Source="max.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Web}" Source="save.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Share}" Source="share.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                    </StackLayout>
+                    <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="White" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
+                        <StackLayout>
+                            <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="white" TextColor="Black" WidthRequest="35" HeightRequest="35"/>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Creator}" TextColor="Black"/>
+                                <Label Text="{Binding SubscribeString}" TextColor="#3F83FF">
+                                <!--<Label Text="sss" TextColor="#3F83FF">-->
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Subscribe}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                            <Label Text="{Binding date}" TextColor="Black"/>
+                            <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding tagsList}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding value}" TextColor="Black" Margin="4, 0">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding value}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>        
+    </Application.Resources>
+</Application>
