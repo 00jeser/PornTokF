@@ -13,8 +13,9 @@ using Xamarin.Forms.Xaml;
 namespace PornTokF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class find : ContentPage
+    public partial class find : CarouselPage
     {
+
         public find()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace PornTokF.Views
             {
                 findEntry.Text = s;
             };
+            (BindingContext as FindViewModel).sourse = this;
         }
         public delegate void findD(string s);
         public static event findD FindE;
@@ -36,6 +38,10 @@ namespace PornTokF.Views
             {
                 (this.BindingContext as FindViewModel).Add();
             }
+        }
+        public void OpenImage()
+        {
+            CurrentPage = Children.Last();
         }
     }
 }

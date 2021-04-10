@@ -58,7 +58,10 @@ namespace PornTokF.ViewModels
 
         public async void add()
         {
-            foreach (var p in await Finder.FindVideosAsync("", "10", (new Random()).Next(10000).ToString()))
+            string tags = Liker.GenetateTags();
+            //(new Random()).Next(10000).ToString()
+            var ls = await Finder.FindVideosAsync(tags, "10", "0");
+            foreach (var p in ls)
             {
                 Photos.Add(new PhotoViewModel(p));
             }

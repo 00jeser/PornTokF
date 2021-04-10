@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using PornTokF.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,17 @@ namespace PornTokF.Models
         private Aspect _aspect;
         public Aspect aspect { get { return _aspect; } set { _aspect = value; OnPropertyChanged("aspect"); } }
         private Post _photo;
-        public Post Photo { get { return _photo; } set { _photo = value; OnPropertyChanged("Photo"); } }
+        public Post Photo
+        {
+            get { return _photo; }
+            set
+            {
+                _photo = value;
+                if (value != null && value.Id != null)
+                    Liked = Liker.FindIt(value?.Id);
+                OnPropertyChanged("Photo");
+            }
+        }
         public List<stringContainer> tagsList { get; set; } = new List<stringContainer>();
         //Sun Mar 28 08:48:53 +0000 2021
         public string date
@@ -44,6 +55,9 @@ namespace PornTokF.Models
         }
         private bool _moreIsVisible = false;
         public bool MoreIsVisible { get { return _moreIsVisible; } set { _moreIsVisible = value; OnPropertyChanged("MoreIsVisible"); } }
+        private bool _liked = false;
+        public bool Liked { get { return _liked; } set { _liked = value; OnPropertyChanged("Liked"); OnPropertyChanged("NotLiked"); } }
+        public bool NotLiked { get { return !_liked; } set { _liked = !value; OnPropertyChanged("NotLiked"); OnPropertyChanged("Liked"); } }
         private string _creator = "";
         public string Creator { get { return _creator; } set { _creator = value; OnPropertyChanged("Creator"); } }
         private string _subscribeString = " ";
@@ -130,10 +144,20 @@ namespace PornTokF.Models
             {
                 await Task.Run(() => aspect = aspect == Xamarin.Forms.Aspect.AspectFill ? Xamarin.Forms.Aspect.AspectFit : Xamarin.Forms.Aspect.AspectFill);
             });
-            Like = new Command(async () => await Task.Run(() => 
+            Like = new Command(async () => await Task.Run(() =>
             {
-
+                if (Liker.FindIt(Photo))
+                {
+                    Liker.DeleteIt(Photo);
+                    Liked = false;
+                }
+                else
+                {
+                    Liked = true;
+                    Liker.LikeIt(Photo);
+                }
             }));
+            //OnPropertyChanged("Liked"); OnPropertyChanged("NotLiked");
         }
 
     }

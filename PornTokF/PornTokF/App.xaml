@@ -39,10 +39,9 @@
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2"/>
                     <Grid Grid.Row="1">
                         <Grid.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                                <GradientStop Color="#0000" Offset="1" />
-                                <GradientStop Color="#5000" Offset="0.85" />
-                                <GradientStop Color="#000" Offset="0" />
+                            <LinearGradientBrush EndPoint="0, 0" StartPoint="0, 1">
+                                <GradientStop Color="#A000"/>
+                                <GradientStop Color="#0000" Offset="1"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="White"/>
@@ -55,7 +54,10 @@
                         </Frame.GestureRecognizers>
                     </Frame>
                     <StackLayout WidthRequest="60" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,0">
-                        <ImageButton Command="{Binding Like}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <Grid>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding NotLiked}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding Liked}" Source="liked.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        </Grid>
                         <ImageButton Command="{Binding Aspect}" Source="max.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
                         <ImageButton Command="{Binding Web}" Source="save.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
                         <ImageButton Command="{Binding Share}" Source="share.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
@@ -66,7 +68,7 @@
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Creator}" TextColor="Black"/>
                                 <Label Text="{Binding SubscribeString}" TextColor="#3F83FF">
-                                <!--<Label Text="sss" TextColor="#3F83FF">-->
+                                    <!--<Label Text="sss" TextColor="#3F83FF">-->
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Subscribe}"/>
                                     </Label.GestureRecognizers>
@@ -88,6 +90,6 @@
                     </Frame>
                 </Grid>
             </DataTemplate>
-        </ResourceDictionary>        
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

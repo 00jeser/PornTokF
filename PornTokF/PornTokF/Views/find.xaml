@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:PornTokF.ViewModels"
              xmlns:local="clr-namespace:PornTokF.Models"
              x:Class="PornTokF.Views.find"
-             Title="Поиск" Background="black" x:DataType="vm:FindViewModel">
-    <ContentPage.BindingContext>
+             Background="black" x:DataType="vm:FindViewModel">
+    <CarouselPage.BindingContext>
         <vm:FindViewModel/>
-    </ContentPage.BindingContext>
-    <ContentPage.Content>
+    </CarouselPage.BindingContext>
+    <ContentPage>
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,12 +23,16 @@
                     <Entry Grid.Row="0" Text="{Binding FindString}" x:Name="findEntry" TextColor="White" PlaceholderColor="White" Placeholder="Теги для поиска"/>
                     <Button Grid.Row="1" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" TextColor="White"/>
                 </Grid>
-                <ScrollView Scrolled="OnScrolled" Grid.Row="1">
+                <ScrollView Orientation="Vertical" Scrolled="OnScrolled" Grid.Row="1">
                     <StackLayout>
                         <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Image x:DataType="local:Post" Source="{Binding Preview_url}" HeightRequest="200" WidthRequest="135"/>
+                                    <Image x:DataType="vm:PhotoFindViewModel" Source="{Binding Photo.Preview_url}" HeightRequest="200" WidthRequest="135">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Open}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </FlexLayout>
@@ -36,9 +40,11 @@
                     </StackLayout>
                 </ScrollView>
             </Grid>
-            <CarouselView>
-                
-            </CarouselView>
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+    </ContentPage>
+    <ContentPage>
+        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhoto}">
+
+        </CarouselView>
+    </ContentPage>
+</CarouselPage>
