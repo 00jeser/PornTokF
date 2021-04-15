@@ -9,10 +9,30 @@ namespace PornTokF.Services
 {
     static class Liker
     {
+        private class Tag 
+        {
+            public string count;
+            public string value;
+            public string types;
+            public Tag(string[] vals) 
+            {
+                count = vals[0];
+                value = vals[1];
+                types = vals[2];
+            }
+        }
+
         public static string p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "likes");
         static List<string> likes = File.Exists(p) ? File.ReadAllText(p).Split('\n').ToList() : new List<string>();
-        
-        
+        static List<Tag> tags = new StreamReader(new Posts().GetType().Assembly.GetManifestResourceStream("PornTokF.tags.txt")).ReadToEnd().Split('\n').Select(x => new Tag(x.Split('~'))).ToList();
+        static List<string> generalTags = tags.Where(x => x.types.Contains("general")).Select(x => x.value).ToList();
+        static List<string> ambiguousTags = tags.Where(x => x.types.Contains("ambiguous")).Select(x => x.value).ToList();
+        static List<string> metadataTags = tags.Where(x => x.types.Contains("metadata")).Select(x => x.value).ToList();
+        static List<string> copyrightTags = tags.Where(x => x.types.Contains("copyright")).Select(x => x.value).ToList();
+        static List<string> artistTags = tags.Where(x => x.types.Contains("artist")).Select(x => x.value).ToList();
+        static List<string> characterTags = tags.Where(x => x.types.Contains("character")).Select(x => x.value).ToList();
+
+
         public static void LikeIt(string tags, string id)
         {
             try
@@ -71,14 +91,40 @@ namespace PornTokF.Services
             if (likes.Count == 0)
                 return "";
             string r = "";
-            var ls = likes.Select(x => x.Split('~')[1].Split(' ')).ToList();
             var Rand = new Random();
-            int sp = Rand.Next(ls.Count);
-            r += ls[sp][Rand.Next(ls[sp].Length)];
-            r += '+';
-            r += ls[sp][Rand.Next(ls[sp].Length)];
+            var needType = Rand.Next(3);
+            switch (needType)
+            {
+                case 0:
+                    var likesCharecter = new List<string>();
+                    foreach (var s in likes)
+                        foreach (var ss in s.Split('~')[1].Split(' '))
+                            if (characterTags.Contains(ss))
+                                likesCharecter.Add(ss);
+                    return likesCharecter[Rand.Next(likesCharecter.Count)];
+                    break;
+                case 1:
+                    var likesGeneral = new List<string>();
+                    foreach (var s in likes)
+                        foreach (var ss in s.Split('~')[1].Split(' '))
+                            if (generalTags.Contains(ss))
+                                likesGeneral.Add(ss);
+                    r += likesGeneral[Rand.Next(likesGeneral.Count)];
+                    r += "+";
+                    r += likesGeneral[Rand.Next(likesGeneral.Count)];
+                    break;
+                case 2:
+                    var likesArtist = new List<string>();
+                    foreach (var s in likes)
+                        foreach (var ss in s.Split('~')[1].Split(' '))
+                            if (artistTags.Contains(ss))
+                                likesArtist.Add(ss);
+                    return likesArtist[Rand.Next(likesArtist.Count)];
+                    break;
+            }
             r += "+-fur";
             return r;
         }
+
     }
 }

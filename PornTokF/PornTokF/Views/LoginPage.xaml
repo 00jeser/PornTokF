@@ -8,9 +8,6 @@
              Shell.NavBarIsVisible="False"
              Background="black"  Padding="0,0,0,-200">
     <ContentPage.Content>
-        <Grid>
-            <Rectangle Background="lightBlue"/>
-            <Image x:Name="image" Source="xamarin_logo.png" Aspect="AspectFill"/>
-        </Grid>
+        <Label Text="Скоро..." TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
     </ContentPage.Content>
 </ContentPage>

@@ -25,7 +25,7 @@ namespace PornTokF.ViewModels
         }
         public async void init()
         {
-            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindVideosAsync("", "3", new Random().Next(10000).ToString())).Select(x => new PhotoViewModel(x)));
+            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsAsync(Liker.GenetateTags(), "3")).Select(x => new PhotoViewModel(x)));
         }
         private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post()), new PhotoViewModel(new Post()) });
         public ObservableCollection<PhotoViewModel> Photos
@@ -50,22 +50,34 @@ namespace PornTokF.ViewModels
 
         private async void AddAsync(object value)
         {
-            if (Photos?.Count != 0 && (value == Photos?.Last() || value == Photos?[Photos.Count - 2]))
+            if (Photos.Count < 6)
+                Task.Run(add);
+            else
+            if (Photos?.Count != 0 && (value == Photos?.Last() || value == Photos?[Photos.Count - 2] || value == Photos?[Photos.Count - 6] || value == Photos?[Photos.Count - 4]))
             {
-                await Task.Run(add);
+                Task.Run(add);
             }
         }
 
+        public int n = 0;
         public async void add()
         {
+#if DEBUG
+            var sn = n;
+            n++;
+            Acr.UserDialogs.UserDialogs.Instance.Toast($"Add({sn})", new TimeSpan(0,0,0,0,250));
+#endif
             string tags = Liker.GenetateTags();
             //(new Random()).Next(10000).ToString()
-            var ls = await Finder.FindVideosAsync(tags, "10", "0");
+            var ls = await Finder.FindPostsAsync(tags, "5", (await Finder.GetPostCounts(tags)/5).ToString());
             foreach (var p in ls)
             {
                 Photos.Add(new PhotoViewModel(p));
             }
             OnPropertyChanged("Photos");
+#if DEBUG
+            Acr.UserDialogs.UserDialogs.Instance.Toast($"Added({sn})", new TimeSpan(0, 0, 0, 0, 300));
+#endif
         }
 
 
