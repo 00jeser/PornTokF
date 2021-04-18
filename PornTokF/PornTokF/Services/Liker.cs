@@ -101,6 +101,8 @@ namespace PornTokF.Services
                         foreach (var ss in s.Split('~')[1].Split(' '))
                             if (characterTags.Contains(ss))
                                 likesCharecter.Add(ss);
+                    if (likesCharecter.Count == 0)
+                        return "";
                     return likesCharecter[Rand.Next(likesCharecter.Count)];
                     break;
                 case 1:
@@ -109,6 +111,8 @@ namespace PornTokF.Services
                         foreach (var ss in s.Split('~')[1].Split(' '))
                             if (generalTags.Contains(ss))
                                 likesGeneral.Add(ss);
+                    if (likesGeneral.Count == 0)
+                        return "";
                     r += likesGeneral[Rand.Next(likesGeneral.Count)];
                     r += "+";
                     r += likesGeneral[Rand.Next(likesGeneral.Count)];
@@ -119,6 +123,8 @@ namespace PornTokF.Services
                         foreach (var ss in s.Split('~')[1].Split(' '))
                             if (artistTags.Contains(ss))
                                 likesArtist.Add(ss);
+                    if (likesArtist.Count == 0)
+                        return "";
                     return likesArtist[Rand.Next(likesArtist.Count)];
                     break;
             }

@@ -51,7 +51,7 @@ namespace PornTokF.ViewModels
         private async void AddAsync(object value)
         {
             if (Photos.Count < 6)
-                Task.Run(add);
+                add();
             else
             if (Photos?.Count != 0 && (value == Photos?.Last() || value == Photos?[Photos.Count - 2] || value == Photos?[Photos.Count - 6] || value == Photos?[Photos.Count - 4]))
             {
@@ -62,14 +62,15 @@ namespace PornTokF.ViewModels
         public int n = 0;
         public async void add()
         {
+            string tags = Liker.GenetateTags();
 #if DEBUG
             var sn = n;
             n++;
-            Acr.UserDialogs.UserDialogs.Instance.Toast($"Add({sn})", new TimeSpan(0,0,0,0,250));
+            Acr.UserDialogs.UserDialogs.Instance.Toast($"Add({sn}) - {tags}", new TimeSpan(0,0,0,1,0));
 #endif
-            string tags = Liker.GenetateTags();
             //(new Random()).Next(10000).ToString()
-            var ls = await Finder.FindPostsAsync(tags, "5", (await Finder.GetPostCounts(tags)/5).ToString());
+            var c = (await Finder.GetPostCounts(tags) / 5).ToString();
+            var ls = await Finder.FindPostsAsync(tags, "5", c);
             foreach (var p in ls)
             {
                 Photos.Add(new PhotoViewModel(p));
