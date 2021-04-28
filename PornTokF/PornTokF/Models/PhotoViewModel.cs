@@ -31,9 +31,28 @@ namespace PornTokF.Models
             get { return _photo; }
             set
             {
+                var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "subscribe");
                 _photo = value;
                 if (value != null && value.Id != null)
+                {
                     Liked = Liker.FindIt(value?.Id);
+
+                    Creator = UserIDCaching.LoadUserNameOnlyFromCashe(Photo.Creator_id);
+                    if (Creator != "")
+                    {
+                        try
+                        {
+                            var ls = File.ReadAllLines(p).ToList();
+                            SubscribeString = ls.Contains(Creator) ? "Отписаться" : "Подписатся";
+
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            File.WriteAllText(p, Creator);
+                        }
+
+                    }
+                }
                 OnPropertyChanged("Photo");
             }
         }
@@ -77,6 +96,7 @@ namespace PornTokF.Models
         }
         public PhotoViewModel()
         {
+            var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "subscribe");
             aspect = Xamarin.Forms.Aspect.AspectFit;
             Web = new Command(async () =>
             {
@@ -89,34 +109,22 @@ namespace PornTokF.Models
                 OnPropertyChanged("tagsList");
                 if (_creator == "")
                 {
+                    Creator = await UserIDCaching.LoadUserNameAsync(Photo.Creator_id, Photo.Id);
                     try
                     {
-                        var url = "https://rule34.xxx/index.php?page=post&s=view&id=" + Photo.Id;
-                        var web = new HtmlWeb();
-                        var document = await web.LoadFromWebAsync(url);
-                        var container = document.DocumentNode.Descendants("a").FirstOrDefault(y => y?.GetAttributeValue("href", "")?.Contains("index.php?page=account&amp;s=profile&amp;uname=") == true);
-                        Creator = container.InnerHtml.Trim();
-                        var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "subscribe");
-                        try
-                        {
-                            var ls = File.ReadAllLines(p).ToList();
-                            SubscribeString = ls.Contains(Creator) ? "Отписаться" : "Подписатся";
+                        var ls = File.ReadAllLines(p).ToList();
+                        SubscribeString = ls.Contains(Creator) ? "Отписаться" : "Подписатся";
+                        OnPropertyChanged("Creator");
 
-                        }
-                        catch (FileNotFoundException)
-                        {
-                            File.WriteAllText(p, Creator);
-                        }
                     }
-                    catch (Exception)
+                    catch (FileNotFoundException)
                     {
-
+                        File.WriteAllText(p, Creator);
                     }
                 }
             });
             Subscribe = new Command(x =>
             {
-                var p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "subscribe");
                 try
                 {
                     var ls = File.ReadAllLines(p).ToList();

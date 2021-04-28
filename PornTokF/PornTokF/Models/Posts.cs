@@ -54,7 +54,11 @@ namespace PornTokF.Models
 		public string Preview_width { get; set; }
 		[XmlAttribute(AttributeName = "preview_height")]
 		public string Preview_height { get; set; }
-	}
+        public override bool Equals(object obj)
+        {
+			return (obj as Post).Id == Id;
+        }
+    }
 
 	[XmlRoot(ElementName = "posts")]
 	public class Posts

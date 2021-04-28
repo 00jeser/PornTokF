@@ -27,7 +27,7 @@ namespace PornTokF.ViewModels
             }
         }
 
-        private bool _isRefreshing = true;
+        private bool _isRefreshing = false;
         public bool IsRefreshing
         {
             get { return _isRefreshing; }

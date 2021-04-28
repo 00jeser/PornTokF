@@ -57,75 +57,85 @@ namespace PornTokF.ViewModels
         public void OpenImage(Post p)
         {
             sourse.OpenImage();
-            ViewPhoto = new ObservableCollection<PhotoViewModel>() { new PhotoViewModel(p) };
-    }
-
-    private ObservableCollection<PhotoViewModel> _viewPhoto;
-
-    public ObservableCollection<PhotoViewModel> ViewPhoto
-    {
-        get { return _viewPhoto; }
-        set { _viewPhoto = value; OnPropertyChanged(nameof(ViewPhoto)); }
-    }
-
-
-
-    private string _findString;
-    public string FindString
-    {
-        get
-        {
-            return _findString;
+            var t1 = ViewPhotos.Where(x => x.Photo.Equals(p));
+            ViewPhoto = t1.First();
         }
-        set
+
+        private ObservableCollection<PhotoViewModel> _viewPhotos;
+        public ObservableCollection<PhotoViewModel> ViewPhotos
         {
-            _findString = value;
-            OnPropertyChanged(nameof(FindString));
+            get { return _viewPhotos; }
+            set { _viewPhotos = value; OnPropertyChanged(nameof(ViewPhotos)); }
         }
-    }
-
-    public Command Find { get; set; }
-    public FindViewModel()
-    {
-        Find = new Command(async () =>
+        private PhotoViewModel _viewPhoto;
+        public PhotoViewModel ViewPhoto
         {
-            Init();
-        });
-        Init();
-    }
+            get { return _viewPhoto; }
+            set { _viewPhoto = value; OnPropertyChanged(nameof(ViewPhoto)); }
+        }
 
-    public async void Init()
-    {
-        Photos = new ObservableCollection<PhotoFindViewModel>();
-        pid = 0;
-        Photos = new ObservableCollection<PhotoFindViewModel>((await Finder.FindPostsAsync(FindString, "59")).ToList().Select(x => new PhotoFindViewModel(this) { Photo = x }));
-    }
 
-    private bool canAdd = true;
 
-    public async void Add()
-    {
-        if (canAdd)
+        private string _findString;
+        public string FindString
         {
-            canAdd = false;
-            foreach (var i in await Finder.FindPostsAsync(FindString, "59", (++pid).ToString()))
+            get
             {
-                await Task.Delay(100);
-                Photos.Add(new PhotoFindViewModel(this) { Photo = i });
-                OnPropertyChanged(nameof(Photos));
+                return _findString;
             }
-            canAdd = true;
+            set
+            {
+                _findString = value;
+                OnPropertyChanged(nameof(FindString));
+            }
+        }
+
+        public Command Find { get; set; }
+        public FindViewModel()
+        {
+            Find = new Command(async () =>
+            {
+                Init();
+            });
+            Init();
+        }
+
+        public async void Init()
+        {
+            Photos = new ObservableCollection<PhotoFindViewModel>();
+            pid = 0;
+            var t = (await Finder.FindPostsAsync(FindString, "59")).ToList();
+            Photos = new ObservableCollection<PhotoFindViewModel>(t.Select(x => new PhotoFindViewModel(this) { Photo = x }));
+            ViewPhotos = new ObservableCollection<PhotoViewModel>(t.Select(x => new PhotoViewModel(x)));
+        }
+
+        private bool canAdd = true;
+
+        public async void Add()
+        {
+            if (canAdd)
+            {
+                canAdd = false;
+                foreach (var i in await Finder.FindPostsAsync(FindString, "59", (++pid).ToString()))
+                {
+                    await Task.Delay(100);
+                    Photos.Add(new PhotoFindViewModel(this) { Photo = i });
+                    ViewPhotos.Add(new PhotoViewModel(i));
+                    OnPropertyChanged(nameof(Photos));
+                }
+                OnPropertyChanged(nameof(ViewPhoto));
+                canAdd = true;
+            }
+        }
+
+
+        //------------------------------------------------------
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
-
-
-    //------------------------------------------------------
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected void OnPropertyChanged(string propName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-    }
-}
 }

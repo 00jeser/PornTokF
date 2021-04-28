@@ -43,8 +43,13 @@
         </Grid>
     </ContentPage>
     <ContentPage>
-        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhoto}">
-
+        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhotos}" CurrentItem="{Binding ViewPhoto}" IsScrollAnimated="False">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+            </CarouselView.ItemsLayout>
         </CarouselView>
     </ContentPage>
 </CarouselPage>

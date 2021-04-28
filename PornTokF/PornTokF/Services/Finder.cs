@@ -34,15 +34,19 @@ namespace PornTokF.Services
                 var s = serializer.Deserialize(sr);
                 return ((Posts)s).Post;
             }*/
+            string st1 = "";
+            string st2 = "";
             try
             {
                 HttpClient client = new HttpClient();
 
 
                 string u = "https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&tags=" + tags;
+                st2 = u;
                 HttpResponseMessage response = await client.GetAsync(u);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
+                st1 = responseBody;
                 XmlSerializer serializer = new XmlSerializer(typeof(Posts));
                 using (TextReader sr = new StringReader(responseBody))
                 {
@@ -50,7 +54,7 @@ namespace PornTokF.Services
                     return ((Posts)s).Post;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return new List<Post>();
             }

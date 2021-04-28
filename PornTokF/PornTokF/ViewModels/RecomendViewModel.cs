@@ -25,7 +25,9 @@ namespace PornTokF.ViewModels
         }
         public async void init()
         {
-            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsAsync(Liker.GenetateTags(), "3")).Select(x => new PhotoViewModel(x)));
+            await Task.Delay(1000);
+            var ts = Liker.GenetateTags();
+            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsAsync(ts, "3")).Select(x => new PhotoViewModel(x)));
         }
         private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post()), new PhotoViewModel(new Post()) });
         public ObservableCollection<PhotoViewModel> Photos
@@ -55,22 +57,25 @@ namespace PornTokF.ViewModels
             else
             if (Photos?.Count != 0 && (value == Photos?.Last() || value == Photos?[Photos.Count - 2] || value == Photos?[Photos.Count - 6] || value == Photos?[Photos.Count - 4]))
             {
-                Task.Run(add);
+                _ = Task.Run(add);
             }
         }
 
-        public int n = 0;
+        public int _n = 0;
         public async void add()
         {
+            if (Photos.First().Photo.File_url == null)
+                return;
             string tags = Liker.GenetateTags();
 #if DEBUG
-            var sn = n;
-            n++;
-            Acr.UserDialogs.UserDialogs.Instance.Toast($"Add({sn}) - {tags}", new TimeSpan(0,0,0,1,0));
+            var sn = _n;
+            _n++;
+            Acr.UserDialogs.UserDialogs.Instance.Toast($"Add({sn}) - {tags}", new TimeSpan(0,0,0,2,0));
 #endif
             //(new Random()).Next(10000).ToString()
-            var c = (await Finder.GetPostCounts(tags) / 5).ToString();
-            var ls = await Finder.FindPostsAsync(tags, "5", c);
+            int n = new Random().Next(4, 6);
+            var c = (new Random()).Next(Math.Min(await Finder.GetPostCounts(tags) / n, 1000)).ToString();
+            var ls = await Finder.FindPostsAsync(tags, n.ToString(), c);
             foreach (var p in ls)
             {
                 Photos.Add(new PhotoViewModel(p));
