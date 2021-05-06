@@ -1,10 +1,10 @@
 ﻿using System;
-
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Acr.UserDialogs;
+using Octane.Xamarin.Forms.VideoPlayer.Android;
 
 namespace PornTokF.Droid
 {
@@ -15,8 +15,10 @@ namespace PornTokF.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            LibVLCSharp.Forms.Shared.LibVLCSharpFormsRenderer.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            FormsVideoPlayer.Init();
             UserDialogs.Init(this);
             LoadApplication(new App());
         }

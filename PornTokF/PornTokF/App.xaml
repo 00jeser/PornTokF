@@ -2,7 +2,7 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PornTokF.Services" 
-             xmlns:m="clr-namespace:PornTokF.Models" 
+             xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
              x:Class="PornTokF.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -37,6 +37,17 @@
                     </Grid.RowDefinitions>
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2"/>
+                    <o:VideoPlayer VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="{Binding VideoWight}"
+                                   HeightRequest="{Binding VideoHeight}"
+                                   AutoPlay="True"
+                                   FillMode="ResizeAspectFill"
+                                   Source="{Binding Photo.Sample_url}"
+                                   IsVisible="{Binding VideoVisible}"
+                                   DisplayControls="False"
+                                   Repeat="True"
+                                   Grid.RowSpan="2"/>
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0, 0" StartPoint="0, 1">

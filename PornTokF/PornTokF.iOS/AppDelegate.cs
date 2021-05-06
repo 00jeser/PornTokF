@@ -22,6 +22,7 @@ namespace PornTokF.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            LibVLCSharp.Forms.Shared.LibVLCSharpFormsRenderer.Init();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

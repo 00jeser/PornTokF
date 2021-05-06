@@ -4,7 +4,8 @@
               x:Class="PornTokF.Views.feed"
               Background="black"
               Shell.NavBarIsVisible="False"
-              Title="Лента">
+              Title="Лента"
+              >
     <!--Recomend-->
     <ContentPage>
         <Grid Margin="1">

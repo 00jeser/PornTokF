@@ -81,6 +81,9 @@ namespace PornTokF.Models
         public string Creator { get { return _creator; } set { _creator = value; OnPropertyChanged("Creator"); } }
         private string _subscribeString = " ";
         public string SubscribeString { get { return _subscribeString; } set { _subscribeString = value; OnPropertyChanged("SubscribeString"); } }
+        public double VideoWight { get { return Application.Current.MainPage.Width; } }
+        public double VideoHeight { get { return double.Parse(Photo.Height == null ? "1" : Photo.Height) / double.Parse(Photo.Width == null ? "1" : Photo.Width) * Application.Current.MainPage.Width; } }
+        public bool VideoVisible { get { return Photo.File_url.Contains("mp4"); } }
 
         public PhotoViewModel p => this;
 
@@ -93,6 +96,8 @@ namespace PornTokF.Models
         public PhotoViewModel(Post post) : this()
         {
             Photo = post;
+            OnPropertyChanged(nameof(VideoHeight));
+            OnPropertyChanged(nameof(VideoWight));
         }
         public PhotoViewModel()
         {
