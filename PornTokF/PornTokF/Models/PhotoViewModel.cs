@@ -172,6 +172,5 @@ namespace PornTokF.Models
             }));
             //OnPropertyChanged("Liked"); OnPropertyChanged("NotLiked");
         }
-
     }
 }

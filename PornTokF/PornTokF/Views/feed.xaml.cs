@@ -16,11 +16,6 @@ namespace PornTokF.Views
         public feed()
         {
             InitializeComponent();
-            Init();
-        }
-        public async void Init() 
-        {
-            var a = 0;
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)

@@ -29,7 +29,7 @@ namespace PornTokF.ViewModels
             var ts = Liker.GenetateTags();
             Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsAsync(ts, "3")).Select(x => new PhotoViewModel(x)));
         }
-        private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post()), new PhotoViewModel(new Post()) });
+        private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post() { File_url="" }), new PhotoViewModel(new Post() { File_url = "" }) });
         public ObservableCollection<PhotoViewModel> Photos
         {
             get { return photos; }
@@ -57,7 +57,7 @@ namespace PornTokF.ViewModels
             else
             if (Photos?.Count != 0 && (value == Photos?.Last() || value == Photos?[Photos.Count - 2] || value == Photos?[Photos.Count - 6] || value == Photos?[Photos.Count - 4]))
             {
-                _ = Task.Run(add);
+                await Task.Run(add);
             }
         }
 
@@ -76,11 +76,21 @@ namespace PornTokF.ViewModels
             int n = new Random().Next(4, 6);
             var c = (new Random()).Next(Math.Min(await Finder.GetPostCounts(tags) / n, 1000)).ToString();
             var ls = await Finder.FindPostsAsync(tags, n.ToString(), c);
-            foreach (var p in ls)
+            if (Device.RuntimePlatform == Device.UWP) 
             {
-                Photos.Add(new PhotoViewModel(p));
+                var nPs = Photos.ToList();
+                foreach (var v in ls)
+                    nPs.Add(new PhotoViewModel(v));
+                Photos = new ObservableCollection<PhotoViewModel>(nPs);
             }
-            OnPropertyChanged("Photos");
+            else
+            {
+                foreach (var p in ls)
+                {
+                    Photos.Add(new PhotoViewModel(p));
+                }
+                OnPropertyChanged("Photos");
+            }
 #if DEBUG
             Acr.UserDialogs.UserDialogs.Instance.Toast($"Added({sn})", new TimeSpan(0, 0, 0, 0, 300));
 #endif

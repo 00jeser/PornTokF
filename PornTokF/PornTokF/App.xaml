@@ -2,13 +2,15 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PornTokF.Services" 
-             xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" xmlns:mm="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
+             xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:PornTokF.Converter"
              x:Class="PornTokF.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
         <ResourceDictionary>
+            <cv:BoolRevert x:Key="ReBool"/>
             <Color x:Key="Primary">#000</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
@@ -36,7 +38,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
-                    <Image Aspect="{Binding aspect}" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2"/>
+                    <ff:CachedImage Aspect="{Binding aspect}" CacheDuration="1:0:0" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2" IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"/>
                     <o:VideoPlayer VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    WidthRequest="{Binding VideoWight}"
@@ -47,7 +49,8 @@
                                    IsVisible="{Binding VideoVisible}"
                                    DisplayControls="False"
                                    Repeat="True"
-                                   Grid.RowSpan="2"/>
+                                   Grid.RowSpan="2"
+                                   />
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0, 0" StartPoint="0, 1">

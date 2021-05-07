@@ -8,10 +8,10 @@
               >
     <!--Recomend-->
     <ContentPage>
+        <ContentPage.BindingContext>
+            <vm:RecomendViewModel x:Name="rvm"/>
+        </ContentPage.BindingContext>
         <Grid Margin="1">
-            <Grid.BindingContext>
-                <vm:RecomendViewModel/>
-            </Grid.BindingContext>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
@@ -44,10 +44,10 @@
             <Label>https://rule34.xxx/index.php?page=tags&s=list&sort=asc&order_by=type&pid=103200</Label>
             <Label>tags=%28+user%3abot+~+user%3abob+%29+sort%3acreated_at%3adesc</Label>
         </StackLayout>-->
+        <ContentPage.BindingContext>
+            <vm:SubscribeViewModel x:Name="svm"/>
+        </ContentPage.BindingContext>
         <Grid>
-            <Grid.BindingContext>
-                <vm:SubscribeViewModel/>
-            </Grid.BindingContext>
             <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
                 <Grid>
                     <Grid.RowDefinitions>

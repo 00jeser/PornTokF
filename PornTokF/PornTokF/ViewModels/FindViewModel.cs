@@ -116,14 +116,16 @@ namespace PornTokF.ViewModels
             if (canAdd)
             {
                 canAdd = false;
-                foreach (var i in await Finder.FindPostsAsync(FindString, "59", (++pid).ToString()))
+                var x = await Finder.FindPostsAsync(FindString, "59", (++pid).ToString());
+                var nVPs = ViewPhotos.ToList();
+                foreach (var i in x)
                 {
-                    await Task.Delay(100);
                     Photos.Add(new PhotoFindViewModel(this) { Photo = i });
-                    ViewPhotos.Add(new PhotoViewModel(i));
-                    OnPropertyChanged(nameof(Photos));
+                    nVPs.Add(new PhotoViewModel(i));
                 }
-                OnPropertyChanged(nameof(ViewPhoto));
+                OnPropertyChanged(nameof(Photos));
+                ViewPhotos = new ObservableCollection<PhotoViewModel>(nVPs);
+                OnPropertyChanged(nameof(ViewPhotos));
                 canAdd = true;
             }
         }
