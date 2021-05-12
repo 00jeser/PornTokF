@@ -62,6 +62,11 @@
                         <Label Text="{Binding Photo.Tags}" TextColor="White" Margin="0, 20, 0, 0"/>
                         <Button BackgroundColor="#01000000" Command="{Binding More}"/>
                     </Grid>
+                    <Grid BackgroundColor="#01000000">
+                        <Grid.GestureRecognizers>
+                            <PinchGestureRecognizer PinchUpdated="PinchGestureRecognizer_PinchUpdated"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
                     <Frame Grid.RowSpan="2" BackgroundColor="#01000000" IsVisible="{Binding MoreIsVisible}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding More}"/>

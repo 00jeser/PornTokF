@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:PornTokF.ViewModels"
              xmlns:local="clr-namespace:PornTokF.Models"
              x:Class="PornTokF.Views.find"
-             Background="black" x:DataType="vm:FindViewModel">
+             Background="black" x:DataType="vm:FindViewModel"
+              >
     <CarouselPage.BindingContext>
         <vm:FindViewModel/>
     </CarouselPage.BindingContext>

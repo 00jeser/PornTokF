@@ -28,5 +28,10 @@ namespace PornTokF
         protected override void OnResume()
         {
         }
+
+        private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
+        {
+
+        }
     }
 }
