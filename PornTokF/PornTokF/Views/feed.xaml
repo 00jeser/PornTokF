@@ -16,12 +16,15 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <CarouselView Grid.RowSpan="2" IsBounceEnabled="True" ItemsSource="{Binding Photos}" Loop="False" CurrentItem="{Binding CurrentItem, Mode=OneWayToSource}" ItemTemplate="{StaticResource Photo}">
+            <CarouselView Grid.RowSpan="2"
+                          AbsoluteLayout.LayoutFlags="All"
+                          IsBounceEnabled="True" ItemsSource="{Binding Photos}" Loop="False" CurrentItem="{Binding CurrentItem, Mode=OneWayToSource}" ItemTemplate="{StaticResource Photo}" ItemsUpdatingScrollMode="KeepScrollOffset">
                 <CarouselView.ItemsLayout>
                     <LinearItemsLayout
                         Orientation="Vertical" 
                         SnapPointsAlignment="Start" 
-                        SnapPointsType="MandatorySingle" />
+                        SnapPointsType="MandatorySingle" 
+                        />
                 </CarouselView.ItemsLayout>
             </CarouselView>
             <Label TextColor="White" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">

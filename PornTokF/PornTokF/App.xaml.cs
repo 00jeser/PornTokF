@@ -31,7 +31,7 @@ namespace PornTokF
 
         private void PinchGestureRecognizer_PinchUpdated(object sender, PinchGestureUpdatedEventArgs e)
         {
-
+            
         }
     }
 }

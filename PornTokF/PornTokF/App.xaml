@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:PornTokF.Services" 
              xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" 
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:PornTokF.Converter"
+             xmlns:pinch="clr-namespace:Xamarin.Forms.PinchZoomImage;assembly=Xamarin.Forms.PinchZoomImage" xmlns:mc="clr-namespace:PornTokF"
              x:Class="PornTokF.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -38,7 +39,11 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
-                    <ff:CachedImage Aspect="{Binding aspect}" CacheDuration="1:0:0" Source="{Binding Photo.Sample_url}" Grid.RowSpan="2" IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"/>
+                    <mc:ZoomImage Aspect="{Binding aspect}"
+                                    Grid.RowSpan="2"
+                                    IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"
+                                   Source="{Binding Photo.File_url}"
+                                    />
                     <o:VideoPlayer VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    WidthRequest="{Binding VideoWight}"
@@ -61,11 +66,6 @@
                         <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="White"/>
                         <Label Text="{Binding Photo.Tags}" TextColor="White" Margin="0, 20, 0, 0"/>
                         <Button BackgroundColor="#01000000" Command="{Binding More}"/>
-                    </Grid>
-                    <Grid BackgroundColor="#01000000">
-                        <Grid.GestureRecognizers>
-                            <PinchGestureRecognizer PinchUpdated="PinchGestureRecognizer_PinchUpdated"/>
-                        </Grid.GestureRecognizers>
                     </Grid>
                     <Frame Grid.RowSpan="2" BackgroundColor="#01000000" IsVisible="{Binding MoreIsVisible}">
                         <Frame.GestureRecognizers>

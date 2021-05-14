@@ -57,7 +57,7 @@ namespace PornTokF.ViewModels
         public void OpenImage(Post p)
         {
             sourse.OpenImage();
-            var t1 = ViewPhotos.Where(x => x.Photo.Equals(p));
+            var t1 = ViewPhotos.Where(x => x.Photo.Id == p.Id);
             ViewPhoto = t1.First();
         }
 
@@ -71,7 +71,11 @@ namespace PornTokF.ViewModels
         public PhotoViewModel ViewPhoto
         {
             get { return _viewPhoto; }
-            set { _viewPhoto = value; OnPropertyChanged(nameof(ViewPhoto)); }
+            set 
+            { 
+                _viewPhoto = value; 
+                OnPropertyChanged(nameof(ViewPhoto)); 
+            }
         }
 
 
@@ -117,15 +121,26 @@ namespace PornTokF.ViewModels
             {
                 canAdd = false;
                 var x = await Finder.FindPostsAsync(FindString, "59", (++pid).ToString());
-                var nVPs = ViewPhotos.ToList();
-                foreach (var i in x)
+                if (Device.RuntimePlatform == Device.UWP)
                 {
-                    Photos.Add(new PhotoFindViewModel(this) { Photo = i });
-                    nVPs.Add(new PhotoViewModel(i));
+                    var nVPs = ViewPhotos.ToList();
+                    foreach (var i in x)
+                    {
+                        Photos.Add(new PhotoFindViewModel(this) { Photo = i });
+                        nVPs.Add(new PhotoViewModel(i));
+                    }
+                    OnPropertyChanged(nameof(Photos));
+                    ViewPhotos = new ObservableCollection<PhotoViewModel>(nVPs);
+                    OnPropertyChanged(nameof(ViewPhotos));
                 }
-                OnPropertyChanged(nameof(Photos));
-                ViewPhotos = new ObservableCollection<PhotoViewModel>(nVPs);
-                OnPropertyChanged(nameof(ViewPhotos));
+                else
+                {
+                    foreach (var i in x)
+                    {
+                        Photos.Add(new PhotoFindViewModel(this) { Photo = i });
+                        ViewPhotos.Add(new PhotoViewModel(i));
+                    }
+                    }
                 canAdd = true;
             }
         }
