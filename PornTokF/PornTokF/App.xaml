@@ -97,9 +97,9 @@
                             <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding tagsList}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
-                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding value}" TextColor="Black" Margin="4, 0">
+                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value}" TextColor="Black" Margin="4, 0">
                                             <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding value}"/>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding Value}"/>
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </DataTemplate>

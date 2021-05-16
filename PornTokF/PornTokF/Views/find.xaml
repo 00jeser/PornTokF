@@ -21,7 +21,18 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Entry Grid.Row="0" Text="{Binding FindString}" x:Name="findEntry" TextColor="White" PlaceholderColor="White" Placeholder="Теги для поиска"/>
+                    <Entry Grid.Row="0"
+                           Text="{Binding FindString, Mode=TwoWay}"
+                           x:Name="findEntry"
+                           TextColor="White"
+                           PlaceholderColor="White"
+                           Placeholder="Теги для поиска"
+                           ReturnType="Search"
+                           ReturnCommand="{Binding Find}"
+                           Focused="findEntry_Focused"
+                           Unfocused="findEntry_Unfocused"
+                           TextChanged="findEntry_TextChanged" 
+                           />
                     <Button Grid.Row="1" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" TextColor="White"/>
                 </Grid>
                 <ScrollView Orientation="Vertical" Scrolled="OnScrolled" Grid.Row="1">
@@ -40,11 +51,13 @@
                         <Grid HeightRequest="300"/>
                     </StackLayout>
                 </ScrollView>
+                <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected">
+                </ListView>
             </Grid>
         </Grid>
     </ContentPage>
     <ContentPage>
-        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhotos}" CurrentItem="{Binding ViewPhoto}" IsScrollAnimated="False">
+        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhotos}" CurrentItem="{Binding Path=ViewPhoto}" IsScrollAnimated="False">
             <CarouselView.ItemsLayout>
                 <LinearItemsLayout
                         Orientation="Vertical" 

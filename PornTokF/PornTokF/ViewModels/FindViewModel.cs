@@ -54,11 +54,12 @@ namespace PornTokF.ViewModels
         }
 
         public find sourse;
-        public void OpenImage(Post p)
+        public void OpenImage(Post pst)
         {
             sourse.OpenImage();
-            var t1 = ViewPhotos.Where(x => x.Photo.Id == p.Id);
-            ViewPhoto = t1.First();
+            foreach (var p in ViewPhotos)
+                if (p.Photo.Id == pst.Id)
+                    ViewPhoto = p;
         }
 
         private ObservableCollection<PhotoViewModel> _viewPhotos;
@@ -97,20 +98,36 @@ namespace PornTokF.ViewModels
         public Command Find { get; set; }
         public FindViewModel()
         {
+            ViewPhotos = new ObservableCollection<PhotoViewModel>();
+            Photos = new ObservableCollection<PhotoFindViewModel>();
             Find = new Command(async () =>
             {
-                Init();
+                await Init();
             });
             Init();
         }
 
-        public async void Init()
+        public async Task Init()
         {
-            Photos = new ObservableCollection<PhotoFindViewModel>();
-            pid = 0;
-            var t = (await Finder.FindPostsAsync(FindString, "59")).ToList();
-            Photos = new ObservableCollection<PhotoFindViewModel>(t.Select(x => new PhotoFindViewModel(this) { Photo = x }));
-            ViewPhotos = new ObservableCollection<PhotoViewModel>(t.Select(x => new PhotoViewModel(x)));
+                pid = 0;
+                var t = (await Finder.FindPostsAsync(FindString, "59")).ToList();
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                Photos = new ObservableCollection<PhotoFindViewModel>(t.Select(x => new PhotoFindViewModel(this) { Photo = x }));
+                ViewPhotos = new ObservableCollection<PhotoViewModel>(t.Select(x => new PhotoViewModel(x)));
+            }
+            else
+            {
+                Photos.Clear();
+                ViewPhotos.Clear();
+                foreach(var p in t)
+                {
+                    Photos.Add(new PhotoFindViewModel(this) { Photo = p });
+                    ViewPhotos.Add(new PhotoViewModel(p));
+                }
+                OnPropertyChanged(nameof(ViewPhotos));
+                OnPropertyChanged(nameof(Photos));
+            }
         }
 
         private bool canAdd = true;
@@ -140,7 +157,7 @@ namespace PornTokF.ViewModels
                         Photos.Add(new PhotoFindViewModel(this) { Photo = i });
                         ViewPhotos.Add(new PhotoViewModel(i));
                     }
-                    }
+                }
                 canAdd = true;
             }
         }

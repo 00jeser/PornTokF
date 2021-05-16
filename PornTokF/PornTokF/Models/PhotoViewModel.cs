@@ -14,7 +14,7 @@ namespace PornTokF.Models
 {
     public class stringContainer
     {
-        public string value { get; set; }
+        public string Value { get; set; }
     }
     public class PhotoViewModel : INotifyPropertyChanged
     {
@@ -110,7 +110,7 @@ namespace PornTokF.Models
             More = new Command(async x =>
             {
                 MoreIsVisible = !MoreIsVisible;
-                tagsList = Photo?.Tags?.Split(' ').Where(y => y.Trim() != string.Empty).Select(y => new stringContainer() { value = y }).ToList();
+                tagsList = Photo?.Tags?.Split(' ').Where(y => y.Trim() != string.Empty).Select(y => new stringContainer() { Value = y }).ToList();
                 OnPropertyChanged("tagsList");
                 if (_creator == "")
                 {

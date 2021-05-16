@@ -3,6 +3,7 @@ using PornTokF.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,40 +14,20 @@ namespace PornTokF.Services
 {
     public static class Finder
     {
-        public static async System.Threading.Tasks.Task<List<Post>> FindPostsAsync(string tags, string limit = "5", string page = "0")
+        public static List<string> TagsList = new StreamReader(new Posts().GetType().Assembly.GetManifestResourceStream("PornTokF.tags.txt")).ReadToEnd().Split('\n').Select(y => y.Split('~')[1]).ToList();
+        public static async Task<List<Post>> FindPostsAsync(string tags, string limit = "5", string page = "0")
         {
-            /*HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=0&tags=" + tags);
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-            responseBody = responseBody.Replace("<?xml version=\"1.0\" encoding=\"UTF - 8\"?>", "");
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.LoadXml(responseBody);
-            XmlElement xRoot = xDoc.DocumentElement;
-
-
-            response = await client.GetAsync("https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + (new Random()).Next(int.Parse(xRoot.GetAttribute("count")) / 200) + "&tags=" + tags);
-            response.EnsureSuccessStatusCode();
-            responseBody = await response.Content.ReadAsStringAsync();
-            XmlSerializer serializer = new XmlSerializer(typeof(Posts));
-            using (TextReader sr = new StringReader(responseBody))
-            {
-                var s = serializer.Deserialize(sr);
-                return ((Posts)s).Post;
-            }*/
-            string st1 = "";
-            string st2 = "";
             try
             {
                 HttpClient client = new HttpClient();
 
 
                 string u = "https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&tags=" + tags;
-                st2 = u;
+                string st2 = u;
                 HttpResponseMessage response = await client.GetAsync(u);
                 response.EnsureSuccessStatusCode();
                 string responseBody = await response.Content.ReadAsStringAsync();
-                st1 = responseBody;
+                string st1 = responseBody;
                 XmlSerializer serializer = new XmlSerializer(typeof(Posts));
                 using (TextReader sr = new StringReader(responseBody))
                 {
@@ -54,7 +35,7 @@ namespace PornTokF.Services
                     return ((Posts)s).Post;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<Post>();
             }
@@ -62,12 +43,10 @@ namespace PornTokF.Services
         static LruCache<string, string> CountCash = new LruCache<string, string>(capacity: 500);
         public static async Task<int> GetPostCounts(string tags)
         {
-            //CountCash.TryGetValue(tags, out rez);
             if (CountCash.ContainsKey(tags))
             {
                 string rez = CountCash.Get(tags);
                 return int.Parse(rez);
-
             }
             else
             {

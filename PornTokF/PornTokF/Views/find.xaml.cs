@@ -24,6 +24,8 @@ namespace PornTokF.Views
                 findEntry.Text = s;
             };
             (BindingContext as FindViewModel).sourse = this;
+            SuggestBox.IsVisible = false;
+            SuggestBox.ItemsSource = new List<string> { "1boy", "2girls" };
         }
         public delegate void findD(string s);
         public static event findD FindE;
@@ -42,6 +44,34 @@ namespace PornTokF.Views
         public void OpenImage()
         {
             CurrentPage = Children.Last();
+        }
+
+        private void findEntry_Focused(object sender, FocusEventArgs e)
+        {
+            SuggestBox.IsVisible = true;
+        }
+
+        private void findEntry_Unfocused(object sender, FocusEventArgs e)
+        {
+            SuggestBox.IsVisible = false;
+        }
+
+        private void SuggestBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var ctx = e?.SelectedItem?.ToString();
+            if (ctx != null)
+            {
+                if (findEntry.Text == null || findEntry.Text == "")
+                findEntry.Text = ctx;
+                else
+                findEntry.Text = (string.Join(" ", findEntry.Text?.Split().Reverse()?.Skip(1).Reverse()) + " " + ctx + " ").Trim();
+                SuggestBox.SelectedItem = null;
+            }
+        }
+
+        private async void findEntry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SuggestBox.ItemsSource = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()));
         }
     }
 }

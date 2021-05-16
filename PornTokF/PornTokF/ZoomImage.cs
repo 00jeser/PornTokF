@@ -15,6 +15,8 @@ namespace PornTokF
 
         public ZoomImage()
         {
+
+
             var pinch = new PinchGestureRecognizer();
             pinch.PinchUpdated += OnPinchUpdated;
             GestureRecognizers.Add(pinch);
