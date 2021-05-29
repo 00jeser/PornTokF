@@ -110,7 +110,7 @@ namespace PornTokF.ViewModels
         public async Task Init()
         {
                 pid = 0;
-                var t = (await Finder.FindPostsAsync(FindString, "59")).ToList();
+                var t = (await Finder.FindPostsByNameAsync(FindString, "59")).ToList();
             if (Device.RuntimePlatform == Device.UWP)
             {
                 Photos = new ObservableCollection<PhotoFindViewModel>(t.Select(x => new PhotoFindViewModel(this) { Photo = x }));
@@ -137,7 +137,7 @@ namespace PornTokF.ViewModels
             if (canAdd)
             {
                 canAdd = false;
-                var x = await Finder.FindPostsAsync(FindString, "59", (++pid).ToString());
+                var x = await Finder.FindPostsByNameAsync(FindString, "59", (++pid).ToString());
                 if (Device.RuntimePlatform == Device.UWP)
                 {
                     var nVPs = ViewPhotos.ToList();

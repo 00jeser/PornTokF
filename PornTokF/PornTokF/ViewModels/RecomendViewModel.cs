@@ -27,7 +27,7 @@ namespace PornTokF.ViewModels
         {
             await Task.Delay(1000);
             var ts = Liker.GenetateTags();
-            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsAsync(ts, "3")).Select(x => new PhotoViewModel(x)));
+            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsByNameAsync(ts, "3")).Select(x => new PhotoViewModel(x)));
         }
         private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post() { File_url="" }), new PhotoViewModel(new Post() { File_url = "" }) });
         public ObservableCollection<PhotoViewModel> Photos
@@ -75,7 +75,7 @@ namespace PornTokF.ViewModels
             //(new Random()).Next(10000).ToString()
             int n = new Random().Next(4, 6);
             var c = (new Random()).Next(Math.Min(await Finder.GetPostCounts(tags) / n, 1000)).ToString();
-            var ls = await Finder.FindPostsAsync(tags, n.ToString(), c);
+            var ls = await Finder.FindPostsByNameAsync(tags, n.ToString(), c);
             if (Device.RuntimePlatform == Device.UWP) 
             {
                 var nPs = Photos.ToList();

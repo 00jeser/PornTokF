@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 namespace PornTokF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class find : CarouselPage
+    public partial class find : CarouselPage, INavigateAction
     {
 
         public find()
@@ -25,7 +25,7 @@ namespace PornTokF.Views
             };
             (BindingContext as FindViewModel).sourse = this;
             SuggestBox.IsVisible = false;
-            SuggestBox.ItemsSource = new List<string> { "1boy", "2girls" };
+            SuggestBox.ItemsSource = Finder.TagsList;
         }
         public delegate void findD(string s);
         public static event findD FindE;
@@ -72,6 +72,11 @@ namespace PornTokF.Views
         private async void findEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
             SuggestBox.ItemsSource = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()));
+        }
+
+        public void OnNavigate()
+        {
+            CurrentPage = Children.First();
         }
     }
 }

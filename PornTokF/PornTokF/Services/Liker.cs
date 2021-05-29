@@ -22,8 +22,8 @@ namespace PornTokF.Services
             }
         }
 
-        public static string p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "likes");
-        static List<string> likes = File.Exists(p) ? File.ReadAllText(p).Split('\n').ToList() : new List<string>();
+        private static string p = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "likes");
+        public static List<string> likes = File.Exists(p) ? File.ReadAllText(p).Split('\n').ToList() : new List<string>();
         static List<Tag> tags = new StreamReader(new Posts().GetType().Assembly.GetManifestResourceStream("PornTokF.tags.txt")).ReadToEnd().Split('\n').Select(x => new Tag(x.Split('~'))).ToList();
         //static List<string> generalTags = tags.Where(x => x.types.Contains("general")).Select(x => x.value).ToList();
         //static string[][] generalTags = Hashing(tags.Where(x => x.types.Contains("general")).Select(x => x.value).ToList());

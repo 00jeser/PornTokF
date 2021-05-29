@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:PornTokF.Views" xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+       xmlns:local="clr-namespace:PornTokF.Views"
+       xmlns:logins="clr-namespace:PornTokF.Views.LoginPages"
+       xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
        Title="PornTokF"
-       x:Class="PornTokF.AppShell">
+       x:Class="PornTokF.AppShell"
+       >
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -32,14 +35,13 @@
     <TabBar>
         <ShellContent Title="Лента" Icon="feed.png" ContentTemplate="{DataTemplate local:feed}" />
         <ShellContent Title="Поиск" Icon="find.png" Route="find" ContentTemplate="{DataTemplate local:find}"/>
-        <ShellContent Title="Обзор" Icon="home.png" Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>
-
-    <!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
-    <TabBar>
+        <Tab Title="Обзор"
+             Icon="home.png">
+            <ShellContent Title="Главная" Route="LoginMain" ContentTemplate="{DataTemplate logins:mainLogin}"/>
+            <ShellContent Title="Лайки" Route="LoginLike" ContentTemplate="{DataTemplate logins:Likes}"/>
+            <ShellContent Title="Подписки" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:Subscribes}"/>
+            <ShellContent Title="::Debugging::" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:TestElements}"/>
+        </Tab>
     </TabBar>
 
 

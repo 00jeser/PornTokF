@@ -12,6 +12,7 @@ namespace PornTokF
         {
             Services.Liker.Init();
             Services.UserIDCaching.Init();
+            Services.Subscriber.Init();
             InitializeComponent();
 
             MainPage = new AppShell();

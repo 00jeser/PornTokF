@@ -11,11 +11,16 @@ using Xamarin.Forms.Xaml;
 namespace PornTokF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class feed : CarouselPage
+    public partial class feed : CarouselPage, INavigateAction
     {
         public feed()
         {
             InitializeComponent();
+        }
+
+        public void OnNavigate()
+        {
+            CurrentPage = Children.First();
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)

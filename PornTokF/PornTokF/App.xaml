@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:PornTokF.Services" 
              xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" 
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:PornTokF.Converter"
-             xmlns:pinch="clr-namespace:Xamarin.Forms.PinchZoomImage;assembly=Xamarin.Forms.PinchZoomImage" xmlns:mc="clr-namespace:PornTokF"
+             xmlns:pinch="clr-namespace:Xamarin.Forms.PinchZoomImage;assembly=Xamarin.Forms.PinchZoomImage" xmlns:mc="clr-namespace:PornTokF" xmlns:c="clr-namespace:PornTokF.Components"
              x:Class="PornTokF.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
