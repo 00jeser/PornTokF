@@ -114,7 +114,8 @@ namespace PornTokF.Models
                 OnPropertyChanged("tagsList");
                 if (_creator == "")
                 {
-                    Creator = await UserIDCaching.LoadUserNameAsync(Photo.Creator_id, Photo.Id);
+                    Creator += await UserIDCaching.LoadUserNameAsync(Photo.Creator_id, Photo.Id);
+                    OnPropertyChanged(nameof(Creator));
                     try
                     {
                         var ls = File.ReadAllLines(p).ToList();

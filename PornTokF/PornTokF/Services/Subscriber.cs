@@ -12,7 +12,14 @@ namespace PornTokF.Services
 
         public static void Init() 
         {
-            SubList = File.ReadAllLines(path).ToList();
+            try
+            {
+                SubList = File.ReadAllLines(path).ToList();
+            }
+            catch (Exception)
+            {
+                File.Create(path);
+            }
         }
 
         public static bool Contains(string name) 

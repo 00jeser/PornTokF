@@ -84,6 +84,7 @@
                     <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="White" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
                         <StackLayout>
                             <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="white" TextColor="Black" WidthRequest="35" HeightRequest="35"/>
+                            <!--<c:UserSubscribe UserLabelTextColor="Black" UserName="{Binding Creator}"/>-->
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Creator}" TextColor="Black"/>
                                 <Label Text="{Binding SubscribeString}" TextColor="#3F83FF">

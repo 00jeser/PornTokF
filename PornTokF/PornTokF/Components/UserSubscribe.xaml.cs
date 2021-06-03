@@ -13,22 +13,41 @@ namespace PornTokF.Components
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserSubscribe : ContentView
     {
+        private string _userName;
+        public string UserName
+        {
+            get => (string)GetValue(UserNameProperty);
+            set
+            {
+                SetValue(UserNameProperty, value);
+                _userName = value;
+                UserNameLabel.Text = value;
+                if (value == "")
+                    SubButtonLabel.Text = "";
+                else
+                    SubButtonLabel.Text = Subscriber.Contains(value) ? "Отписаться" : "Подписаться";
+                _userName = value;
+            }
+        }
+        public static readonly BindableProperty UserNameProperty = BindableProperty.Create(
+            nameof(UserName),
+            typeof(string),
+            typeof(UserSubscribe),
+            "def",
+            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
+            {
+                //(bindable as UserSubscribe).UserName = (string)newValue;
+            },
+            propertyChanging: (BindableObject bindable, object oldValue, object newValue) =>
+            {
+                //(bindable as UserSubscribe).UserName = (string)newValue;
+            }
+         );
         public UserSubscribe()
         {
             InitializeComponent();
             SubButtonLabel.Text = "";
-            
-        }
-        private string _userName;
-        public string UserName 
-        {
-            get => _userName;
-            set 
-            {
-                UserNameLabel.Text = value;
-                SubButtonLabel.Text = Subscriber.Contains(value)? "Отписаться":"Подписаться";
-                _userName = value;
-            }
+
         }
 
         public Color UserLabelTextColor
@@ -41,9 +60,9 @@ namespace PornTokF.Components
             set => SubButtonLabel.TextColor = value;
             get => SubButtonLabel.TextColor;
         }
-        public float FontSize 
+        public float FontSize
         {
-            set 
+            set
             {
                 SubButtonLabel.FontSize = value;
                 UserNameLabel.FontSize = value;
@@ -52,7 +71,7 @@ namespace PornTokF.Components
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-            if (Subscriber.Contains(_userName)) 
+            if (Subscriber.Contains(_userName))
             {
                 Subscriber.Remove(_userName);
                 SubButtonLabel.Text = "Подписаться";

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:PornTokF.ViewModels"
+             xmlns:vm="clr-namespace:PornTokF.ViewModels" xmlns:u="clr-namespace:PornTokF.Components"
              x:Class="PornTokF.Views.LoginPages.Subscribes"
              BackgroundColor="Black" >
     <ContentPage.BindingContext>
@@ -12,13 +12,7 @@
             <BindableLayout.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Label Margin="5,0,0,0"  Text="{Binding}" HorizontalOptions="Start" VerticalOptions="Center" TextColor="White"/>
-                        <Label Text="Подписка" HorizontalOptions="End" TextColor="#3F83FF" Margin="0,0,40,0" VerticalOptions="Center"/>
-                        <CheckBox HorizontalOptions="End" WidthRequest="40" HeightRequest="40" IsChecked="True">
-                            <CheckBox.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Click}" CommandParameter="{Binding}"/>
-                            </CheckBox.GestureRecognizers>
-                        </CheckBox>
+                        <u:UserSubscribe UserName="{Binding}" UserLabelTextColor="White"/>
                         <BoxView HeightRequest="1" Color="White" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
                     </Grid>
                 </DataTemplate>
