@@ -29,22 +29,7 @@ namespace PornTokF.ViewModels
 
         public SubscribesViewModel() 
         {
-            Subs = new ObservableCollection<string>(File.ReadAllLines(p).ToList());
-            Click = new Command((name) => 
-            {
-                var ls = File.ReadAllLines(p).ToList();
-                var ds = File.ReadAllText(p);
-                if (ls.Contains(name.ToString()))
-                {
-                    ls.Remove(name.ToString());
-                }
-                else 
-                {
-                    ls.Add(name.ToString());
-                }
-                string s = string.Join("\n", ls);
-                File.WriteAllText(p, s);
-            });
+            Subs = new ObservableCollection<string>(Services.Subscriber.SubList);
         }
 
 

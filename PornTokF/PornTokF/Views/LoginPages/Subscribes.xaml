@@ -8,15 +8,17 @@
         <vm:SubscribesViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="10" BindableLayout.ItemsSource="{Binding Subs}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <u:UserSubscribe UserName="{Binding}" UserLabelTextColor="White"/>
-                        <BoxView HeightRequest="1" Color="White" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-                    </Grid>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+        <RefreshView>
+            <StackLayout Margin="10" BindableLayout.ItemsSource="{Binding Subs}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <u:UserSubscribe UserName="{Binding}" UserLabelTextColor="White"/>
+                            <BoxView HeightRequest="1" Color="White" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

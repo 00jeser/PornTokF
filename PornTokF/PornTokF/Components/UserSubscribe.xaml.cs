@@ -20,13 +20,6 @@ namespace PornTokF.Components
             set
             {
                 SetValue(UserNameProperty, value);
-                _userName = value;
-                UserNameLabel.Text = value;
-                if (value == "")
-                    SubButtonLabel.Text = "";
-                else
-                    SubButtonLabel.Text = Subscriber.Contains(value) ? "Отписаться" : "Подписаться";
-                _userName = value;
             }
         }
         public static readonly BindableProperty UserNameProperty = BindableProperty.Create(
@@ -34,13 +27,9 @@ namespace PornTokF.Components
             typeof(string),
             typeof(UserSubscribe),
             "def",
-            propertyChanged: (BindableObject bindable, object oldValue, object newValue) =>
-            {
-                //(bindable as UserSubscribe).UserName = (string)newValue;
-            },
             propertyChanging: (BindableObject bindable, object oldValue, object newValue) =>
             {
-                //(bindable as UserSubscribe).UserName = (string)newValue;
+                (bindable as UserSubscribe).ChangeUserName((string)newValue);
             }
          );
         public UserSubscribe()
@@ -67,6 +56,18 @@ namespace PornTokF.Components
                 SubButtonLabel.FontSize = value;
                 UserNameLabel.FontSize = value;
             }
+        }
+
+        public void ChangeUserName(string value)
+        {
+
+                _userName = value;
+                UserNameLabel.Text = value;
+                if (value == "")
+                    SubButtonLabel.Text = "";
+                else
+                    SubButtonLabel.Text = Subscriber.Contains(value) ? "Отписаться" : "Подписаться";
+                _userName = value;
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

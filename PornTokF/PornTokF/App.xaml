@@ -12,6 +12,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <cv:BoolRevert x:Key="ReBool"/>
+            <cv:SpaceAroundStringConvert x:Key="SpaceAroundStringConvert"/>
             <Color x:Key="Primary">#000</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
@@ -84,21 +85,12 @@
                     <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="White" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
                         <StackLayout>
                             <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="white" TextColor="Black" WidthRequest="35" HeightRequest="35"/>
-                            <!--<c:UserSubscribe UserLabelTextColor="Black" UserName="{Binding Creator}"/>-->
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Creator}" TextColor="Black"/>
-                                <Label Text="{Binding SubscribeString}" TextColor="#3F83FF">
-                                    <!--<Label Text="sss" TextColor="#3F83FF">-->
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Subscribe}"/>
-                                    </Label.GestureRecognizers>
-                                </Label>
-                            </StackLayout>
+                            <c:UserSubscribe UserLabelTextColor="Black" UserName="{Binding Creator}"/>
                             <Label Text="{Binding date}" TextColor="Black"/>
                             <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding tagsList}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
-                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value}" TextColor="Black" Margin="4, 0">
+                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value, Converter={StaticResource SpaceAroundStringConvert}}" TextColor="Black">
                                             <Label.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding Value}"/>
                                             </Label.GestureRecognizers>

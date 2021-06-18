@@ -24,9 +24,9 @@ namespace PornTokF.ViewModels
         public PhotoViewModel CurrentPhoto
         {
             get { return currentPhoto; }
-            set 
+            set
             {
-                if (value == LikesList.Last()) 
+                if (value == LikesList.Last())
                 {
                     AddNext5();
                 }
@@ -47,21 +47,20 @@ namespace PornTokF.ViewModels
 
         private List<int> likesIds;
 
-        public LikesPageViewModel() 
+        public LikesPageViewModel()
         {
-            likesIds = Liker.likes.Select(x => int.Parse(x.Split('~')[0])).ToList();
+            likesIds = Liker.likes.Select(x => int.Parse(x.Split('~')[0])).Reverse().ToList();
             AddNext5();
             Update = new Command(x =>
             {
                 LikesList.Clear();
-                likesIds = Liker.likes.Select(y => int.Parse(y.Split('~')[0])).ToList();
+                likesIds = Liker.likes.Select(y => int.Parse(y.Split('~')[0])).Reverse().ToList();
                 AddNext5();
-                IsUpdated = false;
             });
         }
 
         private bool needAdd = true;
-        public async void AddNext5() 
+        public async void AddNext5()
         {
             if (needAdd)
             {
@@ -75,6 +74,7 @@ namespace PornTokF.ViewModels
                 }
                 needAdd = true;
             }
+            IsUpdated = false;
         }
 
         public Command Update { get; set; }

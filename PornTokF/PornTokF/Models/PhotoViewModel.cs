@@ -38,20 +38,6 @@ namespace PornTokF.Models
                     Liked = Liker.FindIt(value?.Id);
 
                     Creator = UserIDCaching.LoadUserNameOnlyFromCashe(Photo.Creator_id);
-                    if (Creator != "")
-                    {
-                        try
-                        {
-                            var ls = File.ReadAllLines(p).ToList();
-                            SubscribeString = ls.Contains(Creator) ? "Отписаться" : "Подписатся";
-
-                        }
-                        catch (FileNotFoundException)
-                        {
-                            File.WriteAllText(p, Creator);
-                        }
-
-                    }
                 }
                 OnPropertyChanged("Photo");
             }

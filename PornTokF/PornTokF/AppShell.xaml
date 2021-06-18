@@ -35,12 +35,11 @@
     <TabBar>
         <ShellContent Title="Лента" Icon="feed.png" ContentTemplate="{DataTemplate local:feed}" />
         <ShellContent Title="Поиск" Icon="find.png" Route="find" ContentTemplate="{DataTemplate local:find}"/>
-        <Tab Title="Обзор"
-             Icon="home.png">
+        <Tab Title="Обзор" Icon="home.png">
             <ShellContent Title="Главная" Route="LoginMain" ContentTemplate="{DataTemplate logins:mainLogin}"/>
             <ShellContent Title="Лайки" Route="LoginLike" ContentTemplate="{DataTemplate logins:Likes}"/>
             <ShellContent Title="Подписки" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:Subscribes}"/>
-            <ShellContent Title="::Debugging::" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:TestElements}"/>
+            <!--<ShellContent Title="::Debugging::" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:TestElements}"/>-->
         </Tab>
     </TabBar>
 

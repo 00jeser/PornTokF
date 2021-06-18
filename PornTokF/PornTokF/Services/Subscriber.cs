@@ -8,18 +8,22 @@ namespace PornTokF.Services
     public static class Subscriber
     {
         private static string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "subscribe");
-        public static List<string> SubList;
+        public static List<string> SubList = Init();
 
-        public static void Init() 
+        public static List<string> Init() 
         {
             try
             {
-                SubList = File.ReadAllLines(path).ToList();
+                return File.ReadAllLines(path).ToList();
             }
             catch (Exception)
             {
-                File.Create(path);
+                using (var writer = new StreamWriter(File.Create(path)))
+                {
+                    // do work here.
+                }
             }
+            return new List<string>();
         }
 
         public static bool Contains(string name) 
