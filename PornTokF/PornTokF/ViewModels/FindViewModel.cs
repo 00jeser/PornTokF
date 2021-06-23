@@ -102,6 +102,7 @@ namespace PornTokF.ViewModels
             Photos = new ObservableCollection<PhotoFindViewModel>();
             Find = new Command(async () =>
             {
+                ViewPhoto = ViewPhotos.First();
                 await Init();
             });
             Init();

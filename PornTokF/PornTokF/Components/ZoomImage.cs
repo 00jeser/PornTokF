@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using FFImageLoading;
+using Vapolia.Lib.Ui;
 
 namespace PornTokF
 {
-    public class ZoomImage : Image
+    public class ZoomImage : FFImageLoading.Svg.Forms.SvgCachedImage 
     {
         private const double MIN_SCALE = 1;
         private const double MAX_SCALE = 4;
@@ -15,7 +17,7 @@ namespace PornTokF
 
         public ZoomImage()
         {
-
+            base.CacheDuration = new TimeSpan(0,10,0);
 
             var pinch = new PinchGestureRecognizer();
             pinch.PinchUpdated += OnPinchUpdated;
@@ -70,6 +72,7 @@ namespace PornTokF
                         TranslationY = Clamp(LastY + e.TotalY * Scale, -Height / 2, Height / 2);
                         break;
                 }
+            Acr.UserDialogs.UserDialogs.Instance.Toast($"{e.TotalX} {e.TotalY}", new TimeSpan(0, 0, 0, 2, 0));
         }
 
         private void OnPinchUpdated(object sender, PinchGestureUpdatedEventArgs e)

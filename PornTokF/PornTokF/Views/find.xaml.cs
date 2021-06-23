@@ -78,5 +78,10 @@ namespace PornTokF.Views
         {
             CurrentPage = Children.First();
         }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            ImageScrollView.ScrollToAsync(0,0,true);
+        }
     }
 }

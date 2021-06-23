@@ -43,8 +43,8 @@
                     <mc:ZoomImage Aspect="{Binding aspect}"
                                     Grid.RowSpan="2"
                                     IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"
-                                   Source="{Binding Photo.File_url}"
-                                    />
+                                    Source="{Binding Photo.File_url}"
+                                  />
                     <o:VideoPlayer VerticalOptions="Center"
                                    HorizontalOptions="Center"
                                    WidthRequest="{Binding VideoWight}"
