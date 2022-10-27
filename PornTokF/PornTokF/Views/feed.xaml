@@ -44,7 +44,7 @@
     <!--Subscribe-->
     <ContentPage>
         <!--<StackLayout>
-            <Label>https://rule34.xxx/index.php?page=tags&s=list&sort=asc&order_by=type&pid=103200</Label>
+            <Label>https://api.rule34.xxx/index.php?page=tags&s=list&sort=asc&order_by=type&pid=103200</Label>
             <Label>tags=%28+user%3abot+~+user%3abob+%29+sort%3acreated_at%3adesc</Label>
         </StackLayout>-->
         <ContentPage.BindingContext>

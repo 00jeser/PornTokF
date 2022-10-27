@@ -22,7 +22,7 @@ namespace PornTokF.Services
                 HttpClient client = new HttpClient();
 
 
-                string u = "https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&tags=" + tags;
+                string u = "https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&tags=" + tags;
                 string st2 = u;
                 HttpResponseMessage response = await client.GetAsync(u);
                 response.EnsureSuccessStatusCode();
@@ -47,7 +47,7 @@ namespace PornTokF.Services
                 HttpClient client = new HttpClient();
 
 
-                string u = "https://rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&id=" + ids.ToString();
+                string u = "https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&limit=" + limit + "&pid=" + page + "&id=" + ids.ToString();
                 string st2 = u;
                 HttpResponseMessage response = await client.GetAsync(u);
                 response.EnsureSuccessStatusCode();
@@ -79,7 +79,7 @@ namespace PornTokF.Services
                 {
                     HttpClient client = new HttpClient();
 
-                    string u = "https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=" + tags;
+                    string u = "https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&tags=" + tags;
 
                     HttpResponseMessage response = await client.GetAsync(u);
                     response.EnsureSuccessStatusCode();

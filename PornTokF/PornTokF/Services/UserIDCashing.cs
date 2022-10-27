@@ -38,7 +38,7 @@ namespace PornTokF.Services
 
             try
             {
-                var url = "https://rule34.xxx/index.php?page=post&s=view&id=" + PostId;
+                var url = "https://api.rule34.xxx/index.php?page=post&s=view&id=" + PostId;
                 var web = new HtmlWeb();
                 var document = await web.LoadFromWebAsync(url);
                 var container = document.DocumentNode.Descendants("a").FirstOrDefault(y => y?.GetAttributeValue("href", "")?.Contains("index.php?page=account&amp;s=profile&amp;uname=") == true);

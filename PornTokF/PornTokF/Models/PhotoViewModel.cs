@@ -138,7 +138,7 @@ namespace PornTokF.Models
             });
             Share = new Command(async () =>
             {
-                await Xamarin.Essentials.Share.RequestAsync("https://rule34.xxx/index.php?page=post&s=view&id=" + Photo.Id);
+                await Xamarin.Essentials.Share.RequestAsync("https://api.rule34.xxx/index.php?page=post&s=view&id=" + Photo.Id);
             });
             Aspect = new Command(async () =>
             {
