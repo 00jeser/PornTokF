@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using LibVLCSharp.Shared;
+using Xamarin.Essentials;
 
 namespace PornTokF.ViewModels
 {
@@ -72,10 +74,10 @@ namespace PornTokF.ViewModels
         public PhotoViewModel ViewPhoto
         {
             get { return _viewPhoto; }
-            set 
-            { 
-                _viewPhoto = value; 
-                OnPropertyChanged(nameof(ViewPhoto)); 
+            set
+            {
+                _viewPhoto = value;
+                OnPropertyChanged(nameof(ViewPhoto));
             }
         }
 
@@ -94,6 +96,23 @@ namespace PornTokF.ViewModels
                 OnPropertyChanged(nameof(FindString));
             }
         }
+        private string FindQuery => FindString + " sort:" +
+            Sorting switch { 0 => "updated", 1 => "source", _ => "random" } 
+            + " score:>="+MinScore;
+
+        private int _sorting = 2;
+        public int Sorting
+        {
+            get => _sorting;
+            set { _sorting = value; OnPropertyChanged(nameof(Sorting)); }
+        }
+
+        private int _minScore = 5;
+        public int MinScore
+        {
+            get => _minScore;
+            set { _minScore = value; OnPropertyChanged(nameof(MinScore)); }
+        }
 
         public Command Find { get; set; }
         public FindViewModel()
@@ -110,8 +129,9 @@ namespace PornTokF.ViewModels
 
         public async Task Init()
         {
-                pid = 0;
-                var t = (await Finder.FindPostsByNameAsync(FindString, "59")).ToList();
+            //FindString = FindQuery;
+            pid = 0;
+            var t = (await Finder.FindPostsByNameAsync(FindQuery, "59")).ToList();
             if (Device.RuntimePlatform == Device.UWP)
             {
                 Photos = new ObservableCollection<PhotoFindViewModel>(t.Select(x => new PhotoFindViewModel(this) { Photo = x }));
@@ -121,7 +141,7 @@ namespace PornTokF.ViewModels
             {
                 Photos.Clear();
                 ViewPhotos.Clear();
-                foreach(var p in t)
+                foreach (var p in t)
                 {
                     Photos.Add(new PhotoFindViewModel(this) { Photo = p });
                     ViewPhotos.Add(new PhotoViewModel(p));
@@ -138,7 +158,7 @@ namespace PornTokF.ViewModels
             if (canAdd)
             {
                 canAdd = false;
-                var x = await Finder.FindPostsByNameAsync(FindString, "59", (++pid).ToString());
+                var x = await Finder.FindPostsByNameAsync(FindQuery, "59", (++pid).ToString());
                 if (Device.RuntimePlatform == Device.UWP)
                 {
                     var nVPs = ViewPhotos.ToList();

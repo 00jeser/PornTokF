@@ -13,15 +13,10 @@
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Entry Grid.Row="0"
+                <Entry Grid.Row="0"
                            Text="{Binding FindString, Mode=TwoWay}"
                            x:Name="findEntry"
                            TextColor="White"
@@ -33,10 +28,41 @@
                            Unfocused="findEntry_Unfocused"
                            TextChanged="findEntry_TextChanged" 
                            />
-                    <Button Grid.Row="1" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" TextColor="White" Clicked="Button_Clicked"/>
-                </Grid>
                 <ScrollView x:Name="ImageScrollView" Orientation="Vertical" Scrolled="OnScrolled" Grid.Row="1">
                     <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Инструкция" TextColor="Blue" IsTabStop="True" TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Instruction_Tapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Button Grid.Row="3" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" 
+                            TextColor="White" Clicked="Button_Clicked" Grid.ColumnSpan="2" BackgroundColor="Blue"/>
+                            <Label Text="{Binding MinScore, StringFormat='Минимальный рейтинг: {0:D}'}" HorizontalTextAlignment="Center"
+                           Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Stepper Minimum="0" Maximum="50" Value="{Binding MinScore}"
+                            Grid.Column="1" Grid.Row="1"/>
+                            <Label Text="Сортировка" 
+                           Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Picker SelectedIndex="{Binding Sorting}"
+                            Grid.Column="1" Grid.Row="2">
+                                <Picker.Items>
+                                    <x:String>По дате</x:String>
+                                    <x:String>По рейтингу</x:String>
+                                    <x:String>Случайно</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
                         <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>

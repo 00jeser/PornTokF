@@ -61,17 +61,21 @@ namespace PornTokF.Views
             var ctx = e?.SelectedItem?.ToString();
             if (ctx != null)
             {
-                if (findEntry.Text == null || findEntry.Text == "")
-                findEntry.Text = ctx;
+                if (string.IsNullOrWhiteSpace(findEntry.Text))
+                    findEntry.Text = ctx;
                 else
-                findEntry.Text = (string.Join(" ", findEntry.Text?.Split().Reverse()?.Skip(1).Reverse()) + " " + ctx + " ").Trim();
+                    findEntry.Text = (string.Join(" ", findEntry.Text?.Split().Reverse()?.Skip(1).Reverse()) + " " + ctx + " ").Trim();
                 SuggestBox.SelectedItem = null;
             }
         }
 
         private async void findEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SuggestBox.ItemsSource = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()));
+            IEnumerable<string> res = new List<string>();
+            await Task.Run(() => 
+                 res = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()))
+            );
+            SuggestBox.ItemsSource = res;
         }
 
         public void OnNavigate()
@@ -81,7 +85,15 @@ namespace PornTokF.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            ImageScrollView.ScrollToAsync(0,0,true);
+            ImageScrollView.ScrollToAsync(0, 0, true);
+        }
+
+        private void Instruction_Tapped(object sender, EventArgs e)
+        {
+            DisplayAlert("Как использовать теги", "-tag удаляет результаты с тегом \n\n" +
+                "tag* добавляет результаты с тегами, которые частично состоят из tag\n\n" +
+                "( tag1 ~ tag2 ) находи посты которые содержат хотя бы один из тегов",
+                "Понял");
         }
     }
 }
