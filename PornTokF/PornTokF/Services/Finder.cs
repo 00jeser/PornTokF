@@ -17,6 +17,7 @@ namespace PornTokF.Services
         public static List<string> TagsList = new StreamReader(new Posts().GetType().Assembly.GetManifestResourceStream("PornTokF.tags.txt")).ReadToEnd().Split('\n').Select(y => y.Split('~')[1]).ToList();
         public static async Task<List<Post>> FindPostsByNameAsync(string tags, string limit = "5", string page = "0")
         {
+            tags = tags + SafeModeService.SafeTags;
             try
             {
                 HttpClient client = new HttpClient();
@@ -68,6 +69,7 @@ namespace PornTokF.Services
         static LruCache<string, string> CountCash = new LruCache<string, string>(capacity: 500);
         public static async Task<int> GetPostCounts(string tags)
         {
+            tags = tags + SafeModeService.SafeTags;
             if (CountCash.ContainsKey(tags))
             {
                 string rez = CountCash.Get(tags);

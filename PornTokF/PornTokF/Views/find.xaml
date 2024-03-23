@@ -79,10 +79,11 @@
                         </Grid>
                     </StackLayout>
                 </ScrollView>
-                <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected">
-                </ListView>
                 <Button x:Name="toUpBtn" Text="^" BackgroundColor="Blue" HorizontalOptions="End" VerticalOptions="End" CornerRadius="25"
                         Clicked="toUpBtn_Clicked" Margin="10" IsVisible="false" HeightRequest="50" WidthRequest="50" Grid.Row="1"/>
+                <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected"
+                          Margin="0,0,0,300">
+                </ListView>
             </Grid>
         </Grid>
     </ContentPage>

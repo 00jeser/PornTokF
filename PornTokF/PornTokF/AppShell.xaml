@@ -39,6 +39,7 @@
             <ShellContent Title="Главная" Route="LoginMain" ContentTemplate="{DataTemplate logins:mainLogin}"/>
             <ShellContent Title="Лайки" Route="LoginLike" ContentTemplate="{DataTemplate logins:Likes}"/>
             <ShellContent Title="Подписки" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:Subscribes}"/>
+            <ShellContent Title="Настройки" Route="LoginSettings" ContentTemplate="{DataTemplate logins:SettingsPage}"/>
             <!--<ShellContent Title="::Debugging::" Route="LoginSubscribe" ContentTemplate="{DataTemplate logins:TestElements}"/>-->
         </Tab>
     </TabBar>

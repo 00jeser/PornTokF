@@ -128,6 +128,7 @@ namespace PornTokF.ViewModels
             Photos = new ObservableCollection<PhotoFindViewModel>();
             Find = new Command(async () =>
             {
+                HistorySevice.addHistory(FindString);
                 ViewPhoto = ViewPhotos.First();
                 await Init();
             });

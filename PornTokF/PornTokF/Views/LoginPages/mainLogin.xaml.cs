@@ -31,5 +31,10 @@ namespace PornTokF.Views.LoginPages
         {
             Shell.Current.GoToAsync("//LoginSubscribe");
         }
+
+        private void set_Clicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync("//LoginSettings");
+        }
     }
 }

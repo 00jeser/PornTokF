@@ -25,7 +25,7 @@ namespace PornTokF.Views
             };
             (BindingContext as FindViewModel).sourse = this;
             SuggestBox.IsVisible = false;
-            SuggestBox.ItemsSource = Finder.TagsList;
+            SuggestBox.ItemsSource = HistorySevice.History;
         }
         public delegate void findD(string s);
         public static event findD FindE;
@@ -42,7 +42,7 @@ namespace PornTokF.Views
             }
             if (e.ScrollY < 100)
                 toUpBtn.IsVisible = false;
-            else 
+            else
                 toUpBtn.IsVisible = true;
         }
         public void OpenImage()
@@ -75,11 +75,18 @@ namespace PornTokF.Views
 
         private async void findEntry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            IEnumerable<string> res = new List<string>();
-            await Task.Run(() => 
-                 res = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()))
-            );
-            SuggestBox.ItemsSource = res;
+            if (!string.IsNullOrWhiteSpace(findEntry.Text))
+            {
+                IEnumerable<string> res = new List<string>();
+                await Task.Run(() =>
+                     res = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()))
+                );
+                SuggestBox.ItemsSource = res;
+            }
+            else
+            {
+                SuggestBox.ItemsSource = HistorySevice.History;
+            }
         }
 
         public void OnNavigate()
@@ -102,7 +109,7 @@ namespace PornTokF.Views
 
         private async void toUpBtn_Clicked(object sender, EventArgs e)
         {
-            await ImageScrollView.ScrollToAsync(0,0, true);
+            await ImageScrollView.ScrollToAsync(0, 0, true);
         }
     }
 }
