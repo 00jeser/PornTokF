@@ -50,7 +50,7 @@
                             TextColor="White" Clicked="Button_Clicked" Grid.ColumnSpan="2" BackgroundColor="Blue"/>
                             <Label Text="{Binding MinScore, StringFormat='Минимальный рейтинг: {0:D}'}" HorizontalTextAlignment="Center"
                            Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Stepper Minimum="0" Maximum="50" Value="{Binding MinScore}"
+                            <Stepper Minimum="0" Maximum="50" Value="{Binding MinScore}" Increment="5"
                             Grid.Column="1" Grid.Row="1"/>
                             <Label Text="Сортировка" 
                            Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -74,11 +74,15 @@
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </FlexLayout>
-                        <Grid HeightRequest="300"/>
+                        <Grid HeightRequest="300">
+                            <Label Text="{Binding NewStatusLable}" FontSize="Title" HorizontalOptions="Center" Margin="20"/>
+                        </Grid>
                     </StackLayout>
                 </ScrollView>
                 <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected">
                 </ListView>
+                <Button x:Name="toUpBtn" Text="^" BackgroundColor="Blue" HorizontalOptions="End" VerticalOptions="End" CornerRadius="25"
+                        Clicked="toUpBtn_Clicked" Margin="10" IsVisible="false" HeightRequest="50" WidthRequest="50" Grid.Row="1"/>
             </Grid>
         </Grid>
     </ContentPage>

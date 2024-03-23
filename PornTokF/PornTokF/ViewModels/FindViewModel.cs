@@ -114,6 +114,13 @@ namespace PornTokF.ViewModels
             set { _minScore = value; OnPropertyChanged(nameof(MinScore)); }
         }
 
+        private string _newStatusLable;
+        public string NewStatusLable
+        {
+            get => _newStatusLable;
+            set { _newStatusLable = value; OnPropertyChanged(nameof(NewStatusLable));}
+        }
+
         public Command Find { get; set; }
         public FindViewModel()
         {
@@ -157,6 +164,7 @@ namespace PornTokF.ViewModels
         {
             if (canAdd)
             {
+                NewStatusLable = "Поиск...";
                 canAdd = false;
                 var x = await Finder.FindPostsByNameAsync(FindQuery, "59", (++pid).ToString());
                 if (Device.RuntimePlatform == Device.UWP)
@@ -179,6 +187,10 @@ namespace PornTokF.ViewModels
                         ViewPhotos.Add(new PhotoViewModel(i));
                     }
                 }
+                if (x.Count == 0)
+                    NewStatusLable = "Конец";
+                else
+                    NewStatusLable = "";
                 canAdd = true;
             }
         }

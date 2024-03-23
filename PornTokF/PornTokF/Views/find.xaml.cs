@@ -40,6 +40,10 @@ namespace PornTokF.Views
             {
                 (this.BindingContext as FindViewModel).Add();
             }
+            if (e.ScrollY < 100)
+                toUpBtn.IsVisible = false;
+            else 
+                toUpBtn.IsVisible = true;
         }
         public void OpenImage()
         {
@@ -94,6 +98,11 @@ namespace PornTokF.Views
                 "tag* добавляет результаты с тегами, которые частично состоят из tag\n\n" +
                 "( tag1 ~ tag2 ) находи посты которые содержат хотя бы один из тегов",
                 "Понял");
+        }
+
+        private async void toUpBtn_Clicked(object sender, EventArgs e)
+        {
+            await ImageScrollView.ScrollToAsync(0,0, true);
         }
     }
 }
