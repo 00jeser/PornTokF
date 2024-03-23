@@ -40,7 +40,7 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
                     <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
-                    <mc:ZoomImage Aspect="{Binding aspect}"
+                    <Image Aspect="{Binding aspect}"
                                     Grid.RowSpan="2"
                                     IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"
                                     Source="{Binding Photo.File_url}"
