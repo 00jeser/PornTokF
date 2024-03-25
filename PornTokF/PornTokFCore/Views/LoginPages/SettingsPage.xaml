@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:PornTokF.ViewModels"
+             x:Class="PornTokF.Views.LoginPages.SettingsPage"
+             Background="black" x:DataType="vm:SettingsViewModel">
+    <ContentPage.BindingContext>
+        <vm:SettingsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+            <Label Text="Безопастный режим" FontSize="Large"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Label Text="Выберите теги, которые не хотите видеть в ленте и поиске"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Entry Text="{Binding SafeString}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

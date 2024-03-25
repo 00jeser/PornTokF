@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PornTokF.Services" 
+             xmlns:m="clr-namespace:PornTokF.Models" xmlns:o="clr-namespace:Octane.Xamarin.Forms.VideoPlayer;assembly=Octane.Xamarin.Forms.VideoPlayer" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:PornTokF.Converter"
+              xmlns:mc="clr-namespace:PornTokF" xmlns:c="clr-namespace:PornTokF.Components"
+             x:Class="PornTokF.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <cv:BoolRevert x:Key="ReBool"/>
+            <cv:SpaceAroundStringConvert x:Key="SpaceAroundStringConvert"/>
+            <Color x:Key="Primary">#000</Color>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="Photo">
+                <Grid x:DataType="m:PhotoViewModel">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Image Aspect="{Binding aspect}" Source="{Binding Photo.Preview_url}" Grid.RowSpan="2"/>
+                    <Image Aspect="{Binding aspect}"
+                                    Grid.RowSpan="2"
+                                    IsVisible="{Binding VideoVisible, Converter={StaticResource ReBool}}"
+                                    Source="{Binding Photo.File_url}"
+                                  />
+                    <o:VideoPlayer VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   WidthRequest="{Binding VideoWight}"
+                                   HeightRequest="{Binding VideoHeight}"
+                                   AutoPlay="True"
+                                   FillMode="ResizeAspectFill"
+                                   Source="{Binding Photo.Sample_url}"
+                                   IsVisible="{Binding VideoVisible}"
+                                   DisplayControls="False"
+                                   Repeat="True"
+                                   Grid.RowSpan="2"
+                                   />
+                    <Grid Grid.Row="1">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0, 0" StartPoint="0, 1">
+                                <GradientStop Color="#A000"/>
+                                <GradientStop Color="#0000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="White"/>
+                        <Label Text="{Binding Photo.Tags}" TextColor="White" Margin="0, 20, 0, 0"/>
+                        <Button BackgroundColor="#01000000" Command="{Binding More}"/>
+                    </Grid>
+                    <Frame Grid.RowSpan="2" BackgroundColor="#01000000" IsVisible="{Binding MoreIsVisible}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding More}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <StackLayout WidthRequest="60" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,0">
+                        <Grid>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding NotLiked}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding Liked}" Source="liked.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        </Grid>
+                        <ImageButton Command="{Binding Aspect}" Source="max.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Web}" Source="save.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Share}" Source="share.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                    </StackLayout>
+                    <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="White" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
+                        <StackLayout>
+                            <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="white" TextColor="Black" WidthRequest="35" HeightRequest="35"/>
+                            <c:UserSubscribe UserLabelTextColor="Black" UserName="{Binding Creator}"/>
+                            <Label Text="{Binding date}" TextColor="Black"/>
+                            <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding tagsList}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value, Converter={StaticResource SpaceAroundStringConvert}}" TextColor="Black">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding Value}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

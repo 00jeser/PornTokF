@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PornTokF.ViewModels"
+             xmlns:local="clr-namespace:PornTokF.Models"
+             x:Class="PornTokF.Views.find"
+             Background="black" x:DataType="vm:FindViewModel"
+              >
+    <CarouselPage.BindingContext>
+        <vm:FindViewModel/>
+    </CarouselPage.BindingContext>
+    <ContentPage>
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Entry Grid.Row="0"
+                           Text="{Binding FindString, Mode=TwoWay}"
+                           x:Name="findEntry"
+                           TextColor="White"
+                           PlaceholderColor="White"
+                           Placeholder="Теги для поиска"
+                           ReturnType="Search"
+                           ReturnCommand="{Binding Find}"
+                           Focused="findEntry_Focused"
+                           Unfocused="findEntry_Unfocused"
+                           TextChanged="findEntry_TextChanged" 
+                           />
+                <ScrollView x:Name="ImageScrollView" Orientation="Vertical" Scrolled="OnScrolled" Grid.Row="1">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Инструкция" TextColor="Blue" IsTabStop="True" TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Instruction_Tapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Button Grid.Row="3" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" 
+                            TextColor="White" Clicked="Button_Clicked" Grid.ColumnSpan="2" BackgroundColor="Blue"/>
+                            <Label Text="{Binding MinScore, StringFormat='Минимальный рейтинг: {0:D}'}" HorizontalTextAlignment="Center"
+                           Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Stepper Minimum="0" Maximum="50" Value="{Binding MinScore}" Increment="5"
+                            Grid.Column="1" Grid.Row="1"/>
+                            <Label Text="Сортировка" 
+                           Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Picker SelectedIndex="{Binding Sorting}"
+                            Grid.Column="1" Grid.Row="2">
+                                <Picker.Items>
+                                    <x:String>По дате</x:String>
+                                    <x:String>По рейтингу</x:String>
+                                    <x:String>Случайно</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                        <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Photos}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Image x:DataType="vm:PhotoFindViewModel" Source="{Binding Photo.Preview_url}" HeightRequest="200" WidthRequest="135">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Open}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                        <Grid HeightRequest="300">
+                            <Label Text="{Binding NewStatusLable}" FontSize="Title" HorizontalOptions="Center" Margin="20"/>
+                        </Grid>
+                    </StackLayout>
+                </ScrollView>
+                <Button x:Name="toUpBtn" Text="^" BackgroundColor="Blue" HorizontalOptions="End" VerticalOptions="End" CornerRadius="25"
+                        Clicked="toUpBtn_Clicked" Margin="10" IsVisible="false" HeightRequest="50" WidthRequest="50" Grid.Row="1"/>
+                <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected"
+                          Margin="0,0,0,300">
+                </ListView>
+            </Grid>
+        </Grid>
+    </ContentPage>
+    <ContentPage>
+        <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhotos}" CurrentItem="{Binding Path=ViewPhoto}" IsScrollAnimated="False">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+            </CarouselView.ItemsLayout>
+        </CarouselView>
+    </ContentPage>
+</CarouselPage>
