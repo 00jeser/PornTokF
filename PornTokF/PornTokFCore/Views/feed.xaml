@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CarouselPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:m="clr-namespace:PornTokF.Models" xmlns:vm="clr-namespace:PornTokF.ViewModels"
+              x:Class="PornTokF.Views.feed"
+              Background="black"
+              Shell.NavBarIsVisible="False"
+              Title="Лента"
+              >
+    <!--Recomend-->
+    <ContentPage>
+        <ContentPage.BindingContext>
+            <vm:RecomendViewModel x:Name="rvm"/>
+        </ContentPage.BindingContext>
+        <Grid Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <CarouselView Grid.RowSpan="2"
+                          AbsoluteLayout.LayoutFlags="All"
+                          IsBounceEnabled="True" ItemsSource="{Binding Photos}" Loop="False" CurrentItem="{Binding CurrentItem, Mode=OneWayToSource}" ItemTemplate="{StaticResource Photo}" ItemsUpdatingScrollMode="KeepScrollOffset">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" 
+                        />
+                </CarouselView.ItemsLayout>
+            </CarouselView>
+            <Label TextColor="White" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0, 1" StartPoint="0, 0">
+                        <GradientStop Color="#A000"/>
+                        <GradientStop Color="#0000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+                <Label.Text>
+                    Рекомендации
+                </Label.Text>
+            </Label>
+        </Grid>
+    </ContentPage>
+
+    <!--Subscribe-->
+    <ContentPage>
+        <!--<StackLayout>
+            <Label>https://api.rule34.xxx/index.php?page=tags&s=list&sort=asc&order_by=type&pid=103200</Label>
+            <Label>tags=%28+user%3abot+~+user%3abob+%29+sort%3acreated_at%3adesc</Label>
+        </StackLayout>-->
+        <ContentPage.BindingContext>
+            <vm:SubscribeViewModel x:Name="svm"/>
+        </ContentPage.BindingContext>
+        <Grid>
+            <RefreshView Command="{Binding Refresh}" IsRefreshing="{Binding IsRefreshing}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <CarouselView Grid.RowSpan="2" ItemsSource="{Binding Photos}" Loop="False" ItemTemplate="{StaticResource Photo}">
+                        <CarouselView.ItemsLayout>
+                            <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+                        </CarouselView.ItemsLayout>
+                    </CarouselView>
+                    <Label TextColor="White" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
+                        <Label.Background>
+                            <LinearGradientBrush EndPoint="0, 1" StartPoint="0, 0">
+								<GradientStop Color="#A000"/>
+								<GradientStop Color="#0000" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Background>
+                        <Label.Text>
+                            Подписки
+                        </Label.Text>
+                    </Label>
+                </Grid>
+            </RefreshView>
+        </Grid>
+    </ContentPage>
+</CarouselPage>

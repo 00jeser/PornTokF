@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:me="clr-namespace:PornTokF.Components"
+             x:Class="PornTokF.Views.LoginPages.TestElements"
+             Background="black">
+    <ContentPage.Content>
+        <StackLayout>
+            <me:UserSubscribe UserName="user1" UserLabelTextColor="White" ButtonLabelTextColor="Aqua" HorizontalOptions="Fill" FontSize="17"/>
+            <me:UserSubscribe UserName="user2" UserLabelTextColor="White" ButtonLabelTextColor="Aqua" HorizontalOptions="Fill" FontSize="17"/>
+            <me:UserSubscribe UserName="user3" UserLabelTextColor="White" ButtonLabelTextColor="Aqua" HorizontalOptions="Fill" FontSize="17"/>
+            <me:UserSubscribe UserName="user4" UserLabelTextColor="White" ButtonLabelTextColor="Aqua" HorizontalOptions="Fill" FontSize="17"/>
+            <me:UserSubscribe UserName="user5" UserLabelTextColor="White" ButtonLabelTextColor="AliceBlue" HorizontalOptions="Fill" FontSize="17"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

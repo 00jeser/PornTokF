@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:PornTokF.ViewModels"
+             x:Class="PornTokF.Views.LoginPages.Likes" Background="Black">
+    <ContentPage.BindingContext>
+        <viewmodels:LikesPageViewModel/>
+    </ContentPage.BindingContext>
+    <RefreshView IsRefreshing="{Binding IsUpdated}" Command="{Binding Update}">
+        <CarouselView  ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding LikesList}" CurrentItem="{Binding CurrentPhoto}" Loop="False">
+            <CarouselView.ItemsLayout>
+                <LinearItemsLayout
+                        Orientation="Vertical" 
+                        SnapPointsAlignment="Start" 
+                        SnapPointsType="MandatorySingle" />
+            </CarouselView.ItemsLayout>
+            
+        </CarouselView>
+    </RefreshView>
+</ContentPage>
