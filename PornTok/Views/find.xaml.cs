@@ -62,7 +62,7 @@ namespace PornTokF.Views
 
         private void SuggestBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var ctx = e?.SelectedItem?.ToString();
+            var ctx = (e?.SelectedItem as Tag)?.ToString();
             if (ctx != null)
             {
                 if (string.IsNullOrWhiteSpace(findEntry.Text))
@@ -77,10 +77,9 @@ namespace PornTokF.Views
         {
             if (!string.IsNullOrWhiteSpace(findEntry.Text))
             {
-                IEnumerable<string> res = new List<string>();
-                await Task.Run(() =>
-                     res = Finder.TagsList.Where(x => x.Contains(e.NewTextValue.Split().Last()))
-                );
+                IEnumerable<Tag> res = new List<Tag>();
+                res = await TagsServices.GetTagsAsync(findEntry.Text.Substring(Math.Max(0, findEntry.Text.LastIndexOf(' ') + 1)));
+                
                 SuggestBox.ItemsSource = res;
             }
             else
@@ -96,7 +95,7 @@ namespace PornTokF.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            ImageScrollView.ScrollToAsync(0, 0, true);
+            //ImageScrollView.ScrollToAsync(0, 0, true);
         }
 
         private void Instruction_Tapped(object sender, EventArgs e)
@@ -109,7 +108,8 @@ namespace PornTokF.Views
 
         private async void toUpBtn_Clicked(object sender, EventArgs e)
         {
-            await ImageScrollView.ScrollToAsync(0, 0, true);
+            //await ImageScrollView.ScrollToAsync(0, 0, true);
         }
+
     }
 }

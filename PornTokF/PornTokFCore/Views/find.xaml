@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<CarouselPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:PornTokF.ViewModels"
              xmlns:local="clr-namespace:PornTokF.Models"
              x:Class="PornTokF.Views.find"
              Background="black" x:DataType="vm:FindViewModel"
               >
-    <CarouselPage.BindingContext>
+    <ContentPage.BindingContext>
         <vm:FindViewModel/>
-    </CarouselPage.BindingContext>
-    <ContentPage>
+    </ContentPage.BindingContext>
+    <Grid>
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Text="Инструкция" TextColor="Blue" IsTabStop="True" TextDecorations="Underline">
+                            <Label Text="Инструкция" TextColor="Blue" TextDecorations="Underline">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Instruction_Tapped" />
                                 </Label.GestureRecognizers>
@@ -86,8 +86,6 @@
                 </ListView>
             </Grid>
         </Grid>
-    </ContentPage>
-    <ContentPage>
         <CarouselView Loop="False" ItemTemplate="{StaticResource Key=Photo}" ItemsSource="{Binding ViewPhotos}" CurrentItem="{Binding Path=ViewPhoto}" IsScrollAnimated="False">
             <CarouselView.ItemsLayout>
                 <LinearItemsLayout
@@ -96,5 +94,5 @@
                         SnapPointsType="MandatorySingle" />
             </CarouselView.ItemsLayout>
         </CarouselView>
-    </ContentPage>
-</CarouselPage>
+    </Grid>
+</ContentPage>

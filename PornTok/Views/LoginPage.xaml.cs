@@ -1,4 +1,4 @@
-﻿using PornTokF.Services;
+﻿using PornTokF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +11,17 @@ using Microsoft.Maui;
 namespace PornTokF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class feed : ContentPage, INavigateAction
+    public partial class LoginPage : ContentPage, INavigateAction
     {
-        public feed()
+        public LoginPage()
         {
             InitializeComponent();
+            //PushAsync(new LoginPages.mainLogin());
         }
 
         public void OnNavigate()
         {
-            //CurrentPage = Children.First();
-        }
-
-        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            var s = (sender as Label).Text;
-            await Shell.Current.GoToAsync("//find");
-            find.FindF(s);
+            
         }
     }
 }
