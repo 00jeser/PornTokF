@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31112.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PornTokF.UWP", "PornTokF\PornTokF.UWP\PornTokF.UWP.csproj", "{143F8064-5EE4-41F6-A878-2494424716DA}"
 EndProject
@@ -10,9 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PornTokF.iOS", "PornTokF\PornTokF.iOS\PornTokF.iOS.csproj", "{1CA710BF-B3AD-4FDF-BEDB-F3634BF2D9F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PornTokF", "PornTokF\PornTokF\PornTokF.csproj", "{2787BB23-D45D-4B31-A6B0-CEEE2F3FFFD7}"
->>>>>>> parent of 0e080df (Начало миграции на MAUI)
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PornTok", "PornTok\PornTok.csproj", "{B290148A-7525-4F27-AAD7-D0DC742EEAB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PornTok", "PornTok\PornTok.csproj", "{B290148A-7525-4F27-AAD7-D0DC742EEAB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -162,7 +161,42 @@ Global
 		{2787BB23-D45D-4B31-A6B0-CEEE2F3FFFD7}.Release|x86.ActiveCfg = Release|Any CPU
 		{2787BB23-D45D-4B31-A6B0-CEEE2F3FFFD7}.Release|x86.Build.0 = Release|Any CPU
 		{2787BB23-D45D-4B31-A6B0-CEEE2F3FFFD7}.Release|x86.Deploy.0 = Release|Any CPU
->>>>>>> parent of 0e080df (Начало миграции на MAUI)
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|ARM.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhone.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x64.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x64.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x86.Build.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Debug|x86.Deploy.0 = Debug|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|ARM.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|ARM.Deploy.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhone.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhone.Deploy.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|iPhoneSimulator.Deploy.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x64.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x64.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x64.Deploy.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x86.ActiveCfg = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x86.Build.0 = Release|Any CPU
+		{B290148A-7525-4F27-AAD7-D0DC742EEAB8}.Release|x86.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
