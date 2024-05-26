@@ -56,6 +56,7 @@ namespace PornTokF.ViewModels
                 s += string.Join("+~+", Services.Subscriber.SubList.Select(x => $"user%3a{x}"));
                 s += "+%29";
                 //s += "+sort%3acreated_at%3adesc";
+                if (s.Contains("user"))
                 Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsByNameAsync(s, "100")).Select(x => new PhotoViewModel(x)));
                 IsRefreshing = false;
             }

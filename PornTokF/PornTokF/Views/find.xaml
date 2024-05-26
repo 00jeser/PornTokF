@@ -66,11 +66,13 @@
                         <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Image x:DataType="vm:PhotoFindViewModel" Source="{Binding Photo.Preview_url}" HeightRequest="200" WidthRequest="135">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Open}"/>
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                                    <Frame CornerRadius="20" Padding="0" Background="#0000" HeightRequest="173" WidthRequest="130" Margin="5 0">
+                                        <Image x:DataType="vm:PhotoFindViewModel" Source="{Binding Photo.Preview_url}" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Open}"/>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Frame>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </FlexLayout>

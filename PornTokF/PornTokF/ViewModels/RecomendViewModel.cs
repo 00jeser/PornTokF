@@ -27,7 +27,7 @@ namespace PornTokF.ViewModels
         {
             await Task.Delay(1000);
             var ts = Liker.GenetateTags();
-            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsByNameAsync(ts, "3")).Select(x => new PhotoViewModel(x)));
+            Photos = new ObservableCollection<PhotoViewModel>((await Finder.FindPostsByNameAsync(ts, "3", "2")).Select(x => new PhotoViewModel(x)));
         }
         private ObservableCollection<PhotoViewModel> photos { get; set; } = new ObservableCollection<PhotoViewModel>(new PhotoViewModel[] { new PhotoViewModel(new Post() { File_url="" }), new PhotoViewModel(new Post() { File_url = "" }) });
         public ObservableCollection<PhotoViewModel> Photos

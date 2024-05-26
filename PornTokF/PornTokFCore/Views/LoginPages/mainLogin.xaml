@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PornTokF.Views.LoginPages.mainLogin">
+             x:Class="PornTokF.Views.LoginPages.mainLogin" Background="black">
     <ContentPage.Content>
-        <StackLayout Background="#333" Margin="10">
+        <StackLayout Background="#333">
             <Button x:Name="set" Clicked="set_Clicked" Background="black" TextColor="white" Text="Настройки"/>
             <Button x:Name="like" Clicked="like_Clicked" Background="black" TextColor="white" Text="Лайки"/>
             <Button x:Name="sub" Clicked="sub_Clicked" Background="black" TextColor="white" Text="Подписки"/>

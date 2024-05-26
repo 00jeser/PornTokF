@@ -5,7 +5,7 @@
        xmlns:logins="clr-namespace:PornTokF.Views.LoginPages"
        xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
        Title="PornTokF"
-       x:Class="PornTokF.AppShell"
+       x:Class="PornTokF.AppShell"  Background="black"
        >
 
     <!--

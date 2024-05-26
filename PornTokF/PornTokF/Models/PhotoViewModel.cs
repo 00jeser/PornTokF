@@ -68,7 +68,7 @@ namespace PornTokF.Models
         private string _subscribeString = " ";
         public string SubscribeString { get { return _subscribeString; } set { _subscribeString = value; OnPropertyChanged("SubscribeString"); } }
         public double VideoWight { get { return Application.Current.MainPage.Width; } }
-        public double VideoHeight { get { return double.Parse(Photo.Height == null ? "1" : Photo.Height) / double.Parse(Photo.Width == null ? "1" : Photo.Width) * Application.Current.MainPage.Width; } }
+        public double VideoHeight { get { return double.Parse(string.IsNullOrWhiteSpace(Photo.Height) ? "1" : Photo.Height) / double.Parse(string.IsNullOrWhiteSpace(Photo.Width) ? "1" : Photo.Width) * Application.Current.MainPage.Width; } }
         public bool VideoVisible { get { return Photo.File_url.Contains("mp4"); } }
 
         public PhotoViewModel p => this;
