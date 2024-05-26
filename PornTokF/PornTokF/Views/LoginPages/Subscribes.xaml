@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:PornTokF.ViewModels" xmlns:u="clr-namespace:PornTokF.Components"
              x:Class="PornTokF.Views.LoginPages.Subscribes"
-             BackgroundColor="Black" >
+             BackgroundColor="{AppThemeBinding Dark=#111, Default=#eee}" >
     <ContentPage.BindingContext>
         <vm:SubscribesViewModel/>
     </ContentPage.BindingContext>

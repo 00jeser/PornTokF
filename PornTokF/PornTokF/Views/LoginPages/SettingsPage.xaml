@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:PornTokF.ViewModels"
              x:Class="PornTokF.Views.LoginPages.SettingsPage"
-             Background="black" x:DataType="vm:SettingsViewModel">
+             Background="{AppThemeBinding Dark=black, Default=white}" x:DataType="vm:SettingsViewModel">
     <ContentPage.BindingContext>
         <vm:SettingsViewModel/>
     </ContentPage.BindingContext>
@@ -14,7 +14,7 @@
             <Label Text="Выберите теги, которые не хотите видеть в ленте и поиске"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
-            <Entry Text="{Binding SafeString}"/>
+            <Entry Text="{Binding SafeString}" TextColor="{AppThemeBinding Dark=white, Default=black}" PlaceholderColor="{AppThemeBinding Dark=#222, Default=#ddd}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

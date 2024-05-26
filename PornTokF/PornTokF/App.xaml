@@ -15,13 +15,13 @@
             <cv:SpaceAroundStringConvert x:Key="SpaceAroundStringConvert"/>
             <Color x:Key="Primary">#000</Color>
             <Style TargetType="Button">
-                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark=white, Default=black}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=black, Default=white}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Disabled">
@@ -32,6 +32,9 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark=white, Default=black}"/>
             </Style>
             <DataTemplate x:Key="Photo">
                 <Grid x:DataType="m:PhotoViewModel">
@@ -60,37 +63,37 @@
                     <Grid Grid.Row="1">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0, 0" StartPoint="0, 1">
-                                <GradientStop Color="#A000"/>
-                                <GradientStop Color="#0000" Offset="1"/>
+                                <GradientStop Color="{AppThemeBinding Dark=#a000, Default=#afff}"/>
+                                <GradientStop Color="{AppThemeBinding Dark=#0000, Default=#0fff}" Offset="1.1"/>
                             </LinearGradientBrush>
                         </Grid.Background>
-                        <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="White"/>
-                        <Label Text="{Binding Photo.Tags}" TextColor="White" Margin="0, 20, 0, 0"/>
-                        <Button BackgroundColor="#01000000" Command="{Binding More}"/>
+                        <Label Text="{Binding Creator}" VerticalOptions="Start" TextColor="{AppThemeBinding Dark=white, Default=black}"/>
+                        <Label Text="{Binding Photo.Tags}" TextColor="{AppThemeBinding Dark=white, Default=black}" Margin="0, 20, 0, 0"/>
+                        <Button BackgroundColor="{AppThemeBinding Dark=#01000000, Default=#01FFFFFF}" Command="{Binding More}"/>
                     </Grid>
-                    <Frame Grid.RowSpan="2" BackgroundColor="#01000000" IsVisible="{Binding MoreIsVisible}">
+                    <Frame Grid.RowSpan="2" BackgroundColor="{AppThemeBinding Dark=#01000000, Default=#01FFFFFF}" IsVisible="{Binding MoreIsVisible}">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding More}"/>
                         </Frame.GestureRecognizers>
                     </Frame>
                     <StackLayout WidthRequest="60" HorizontalOptions="End" VerticalOptions="End" Margin="0,0,10,0">
                         <Grid>
-                            <ImageButton Command="{Binding Like}" IsVisible="{Binding NotLiked}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
-                            <ImageButton Command="{Binding Like}" IsVisible="{Binding Liked}" Source="liked.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding NotLiked}" Source="like.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="{AppThemeBinding Dark=#0fff, Default=#0000}"/>
+                            <ImageButton Command="{Binding Like}" IsVisible="{Binding Liked}" Source="liked.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="{AppThemeBinding Dark=#0fff, Default=#0000}"/>
                         </Grid>
-                        <ImageButton Command="{Binding Aspect}" Source="max.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
-                        <ImageButton Command="{Binding Web}" Source="save.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
-                        <ImageButton Command="{Binding Share}" Source="share.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="#0fff"/>
+                        <ImageButton Command="{Binding Aspect}" Source="max.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="{AppThemeBinding Dark=#0fff, Default=#0000}"/>
+                        <ImageButton Command="{Binding Web}" Source="save.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="{AppThemeBinding Dark=#0fff, Default=#0000}"/>
+                        <ImageButton Command="{Binding Share}" Source="share.png" WidthRequest="60" HeightRequest="60"  BackgroundColor="{AppThemeBinding Dark=#0fff, Default=#0000}"/>
                     </StackLayout>
-                    <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="White" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
+                    <Frame Grid.RowSpan="2"  Margin="0, 150, 0, 0" BackgroundColor="{AppThemeBinding Dark=black, Default=white}" IsVisible="{Binding MoreIsVisible, Mode=TwoWay}" CornerRadius="10">
                         <StackLayout>
-                            <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="white" TextColor="Black" WidthRequest="35" HeightRequest="35"/>
+                            <Button Text="X" HorizontalOptions="End" Command="{Binding More}" Background="{AppThemeBinding Dark=black, Default=white}" TextColor="{AppThemeBinding Dark=white, Default=black}" WidthRequest="35" HeightRequest="35"/>
                             <c:UserSubscribe UserLabelTextColor="Black" UserName="{Binding Creator}"/>
-                            <Label Text="{Binding date}" TextColor="Black"/>
+                            <Label Text="{Binding date}" TextColor="{AppThemeBinding Dark=white, Default=black}"/>
                             <FlexLayout Wrap="Wrap" JustifyContent="Start" BindableLayout.ItemsSource="{Binding tagsList}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
-                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value, Converter={StaticResource SpaceAroundStringConvert}}" TextColor="Black">
+                                        <Label HorizontalOptions="Start" x:DataType="m:stringContainer" Text="{Binding Value, Converter={StaticResource SpaceAroundStringConvert}}" TextColor="{AppThemeBinding Dark=white, Default=black}">
                                             <Label.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={x:Static local:Navigator.FindTag}}" CommandParameter="{Binding Value}"/>
                                             </Label.GestureRecognizers>

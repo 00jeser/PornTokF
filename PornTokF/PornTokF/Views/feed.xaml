@@ -2,7 +2,7 @@
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:m="clr-namespace:PornTokF.Models" xmlns:vm="clr-namespace:PornTokF.ViewModels"
               x:Class="PornTokF.Views.feed"
-              Background="black"
+              Background="{AppThemeBinding Dark=black, Default=white}"
               Shell.NavBarIsVisible="False"
               Title="Лента"
               >
@@ -27,11 +27,11 @@
                         />
                 </CarouselView.ItemsLayout>
             </CarouselView>
-            <Label TextColor="White" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
+            <Label TextColor="{AppThemeBinding Dark=white, Default=black}" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
                 <Label.Background>
                     <LinearGradientBrush EndPoint="0, 1" StartPoint="0, 0">
-                        <GradientStop Color="#A000"/>
-                        <GradientStop Color="#0000" Offset="1"/>
+                        <GradientStop Color="{AppThemeBinding Dark=#A000, Default=#Afff}"/>
+                        <GradientStop Color="{AppThemeBinding Dark=#0000, Default=#0fff}" Offset="1"/>
                     </LinearGradientBrush>
                 </Label.Background>
                 <Label.Text>
@@ -65,11 +65,11 @@
                         SnapPointsType="MandatorySingle" />
                         </CarouselView.ItemsLayout>
                     </CarouselView>
-                    <Label TextColor="White" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
+                    <Label TextColor="{AppThemeBinding Dark=white, Default=black}" HeightRequest="50" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30">
                         <Label.Background>
                             <LinearGradientBrush EndPoint="0, 1" StartPoint="0, 0">
-								<GradientStop Color="#A000"/>
-								<GradientStop Color="#0000" Offset="1"/>
+                                <GradientStop Color="{AppThemeBinding Dark=#A000, Default=#Afff}"/>
+                                <GradientStop Color="{AppThemeBinding Dark=#0000, Default=#0fff}" Offset="1"/>
                             </LinearGradientBrush>
                         </Label.Background>
                         <Label.Text>

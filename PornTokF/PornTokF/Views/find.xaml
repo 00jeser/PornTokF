@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:PornTokF.ViewModels"
              xmlns:local="clr-namespace:PornTokF.Models"
              x:Class="PornTokF.Views.find"
-             Background="black" x:DataType="vm:FindViewModel"
+             Background="{AppThemeBinding Dark=black, Default=white}" x:DataType="vm:FindViewModel"
               >
     <CarouselPage.BindingContext>
         <vm:FindViewModel/>
@@ -19,8 +19,8 @@
                 <Entry Grid.Row="0"
                            Text="{Binding FindString, Mode=TwoWay}"
                            x:Name="findEntry"
-                           TextColor="White"
-                           PlaceholderColor="White"
+                           TextColor="{AppThemeBinding Dark=white, Default=black}"
+                           PlaceholderColor="{AppThemeBinding Dark=white, Default=black}"
                            Placeholder="Теги для поиска"
                            ReturnType="Search"
                            ReturnCommand="{Binding Find}"
@@ -47,7 +47,7 @@
                                 </Label.GestureRecognizers>
                             </Label>
                             <Button Grid.Row="3" HorizontalOptions="End" Text="Найти" Command="{Binding Find}" 
-                            TextColor="White" Clicked="Button_Clicked" Grid.ColumnSpan="2" BackgroundColor="Blue"/>
+                            TextColor="{AppThemeBinding Dark=white, Default=black}" Clicked="Button_Clicked" Grid.ColumnSpan="2" BackgroundColor="Blue"/>
                             <Label Text="{Binding MinScore, StringFormat='Минимальный рейтинг: {0:D}'}" HorizontalTextAlignment="Center"
                            Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
                             <Stepper Minimum="0" Maximum="50" Value="{Binding MinScore}" Increment="5"
@@ -55,6 +55,7 @@
                             <Label Text="Сортировка" 
                            Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
                             <Picker SelectedIndex="{Binding Sorting}"
+                                    TextColor="{AppThemeBinding Dark=white, Default=black}"
                             Grid.Column="1" Grid.Row="2">
                                 <Picker.Items>
                                     <x:String>По дате</x:String>
@@ -66,7 +67,7 @@
                         <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame CornerRadius="20" Padding="0" Background="#0000" HeightRequest="173" WidthRequest="130" Margin="5 0">
+                                    <Frame CornerRadius="20" Padding="0" Background="#0000" HeightRequest="173" WidthRequest="130" Margin="0,5">
                                         <Image x:DataType="vm:PhotoFindViewModel" Source="{Binding Photo.Preview_url}" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Open}"/>
@@ -83,7 +84,7 @@
                 </ScrollView>
                 <Button x:Name="toUpBtn" Text="^" BackgroundColor="Blue" HorizontalOptions="End" VerticalOptions="End" CornerRadius="25"
                         Clicked="toUpBtn_Clicked" Margin="10" IsVisible="false" HeightRequest="50" WidthRequest="50" Grid.Row="1"/>
-                <ListView x:Name="SuggestBox" Grid.Row="1" Background="#121212" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected"
+                <ListView x:Name="SuggestBox" Grid.Row="1" Background="{AppThemeBinding Dark=#121212, Default=#EEE}" HorizontalOptions="Start" VerticalOptions="Start" ItemSelected="SuggestBox_ItemSelected"
                           Margin="0,0,0,300">
                 </ListView>
             </Grid>
